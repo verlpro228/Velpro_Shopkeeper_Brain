@@ -108,34 +108,33 @@ class ImageScanner:
   #   pass
 
   def _find_context(self, md_content: str, img_name: str, max_chars: int = 200) -> ImageContext | None:
-      """返回图片在 MD 中第一次出现位置的上下文，找不到返回 None。"""
-      # 正则匹配 MD 图片语法 ![任意文字](任意路径/图片名...)；re.escape 防文件名特殊字符破坏正则
-      pattern = re.compile(
-        r"!\[.*?\]\(.*?" + re.escape(img_name) + r".*?\)"
-      )
-      md_lines = md_content.split("\n")  # 按行拆分，便于行级定位
+    """返回图片在 MD 中第一次出现位置的上下文，找不到返回 None。"""
+    # 正则匹配 MD 图片语法 ![任意文字](任意路径/图片名...)；re.escape 防文件名特殊字符破坏正则
+    pattern = re.compile(
+      r"!\[.*?\]\(.*?" + re.escape(img_name) + r".*?\)"
+    )
+    md_lines = md_content.split("\n")  # 按行拆分，便于行级定位
 
-      for line_idx, line in enumerate(md_lines):
-        if not pattern.search(line):  # 本行没有该图片引用，看下一行
-          continue
+    # 遍历时同时拿到「序号 + 元素」。
+    for line_idx, line in enumerate(md_lines):
+      if not pattern.search(line):  # 本行没有该图片引用，看下一行
+        continue
 
-        # 向上：找最近标题，取标题到图片之间的内容作为上文
-        prev_title, prev_boundary = self._find_heading_above(md_lines, line_idx)
-        pre_content = md_lines[prev_boundary + 1: line_idx]  # 标题(不含) ~ 图片行(不含)
-        img_pre = self._extract_limited_context(pre_content, max_chars, direction="front")
+      # 向上：找最近标题，取标题到图片之间的内容作为上文
+      prev_title, prev_boundary = self._find_heading_above(md_lines, line_idx)
+      pre_content = md_lines[prev_boundary + 1: line_idx]  # 标题(不含) ~ 图片行(不含)
+      img_pre = self._extract_limited_context(pre_content, max_chars, direction="front")
 
-        # 向下：找下一个标题，取图片到标题之间的内容作为下文
-        next_boundary = self._find_heading_below(md_lines, line_idx)
-        post_content = md_lines[line_idx + 1: next_boundary]  # 图片行(不含) ~ 下个标题(不含)
-        img_post = self._extract_limited_context(post_content, max_chars, direction="end")
+      # 向下：找下一个标题，取图片到标题之间的内容作为下文
+      next_boundary = self._find_heading_below(md_lines, line_idx)
+      post_content = md_lines[line_idx + 1: next_boundary]  # 图片行(不含) ~ 下个标题(不含)
+      img_post = self._extract_limited_context(post_content, max_chars, direction="end")
 
-        return ImageContext(heading=prev_title,pre_text=img_pre,post_text=img_post,)  # 找到即返回第一次出现处
-      return None  # 全文没引用该图片
+      return ImageContext(heading=prev_title,pre_text=img_pre,post_text=img_post,)  # 找到即返回第一次出现处
+    return None  # 全文没引用该图片
 
   @staticmethod
-  def _find_heading_above(
-    md_lines: List[str], from_idx: int
-  ) -> Tuple[str, int]:
+  def _find_heading_above(md_lines: List[str], from_idx: int) -> Tuple[str, int]:
     """从 from_idx 向上查找最近的标题。"""
     for i in range(from_idx - 1, -1, -1):  # 从当前行的上一行一直扫到第0行
       if re.match(r"^#{1,6}\s+", md_lines[i]):  # 1~6个#开头 = Markdown标题
@@ -151,9 +150,7 @@ class ImageScanner:
     return len(md_lines)  # 没找到：边界为文末（下文取到最后一行）
 
   @staticmethod
-  def _extract_limited_context(
-    lines: List[str], max_chars: int, direction: str
-  ) -> str:
+  def _extract_limited_context(lines: List[str], max_chars: int, direction: str) -> str:
     """按段落分割，按 direction 方向贪心装填，保持段落完整性。"""
     # 第一步：把行列表切成段落（空行/其他图片行 = 段落分隔符）
     current_paragraph: List[str] = []  # 正在累积的当前段
@@ -172,6 +169,7 @@ class ImageScanner:
           current_paragraph = []
         continue
 
+      # 普通的文字行 直接添加进当前段
       current_paragraph.append(line)  # 普通行加入当前段
 
     if current_paragraph:  # 收尾：最后一段可能没有空行结束
