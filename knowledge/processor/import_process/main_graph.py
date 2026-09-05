@@ -87,8 +87,9 @@ def create_import_graph() -> CompiledStateGraph:
   # 键（Key）：import_router 函数可能返回的值
   # 值（Value）：实际要跳转到的目标节点名称
   graph.add_conditional_edges(
-    "entry_node",import_router,
-    {
+    "entry_node",  # ① 起点：从哪个节点出来时触发判断
+    import_router, # ② 判断函数（注意：没有括号，传的是函数本身）
+    {    # ③ 路由表：判断结果 → 实际去向
       "md_img_node":"md_img_node",
       "pdf_to_md_node":"pdf_to_md_node",
       END:END
@@ -104,7 +105,7 @@ def create_import_graph() -> CompiledStateGraph:
 
   # 4. 编译
   return graph.compile()
-
+# 提前把整条导入流水线组装好，存到一个全局变量里。
 kb_import_graph_app = create_import_graph()
 
 def run_import_graph(import_file_path:str,file_dir:str)->dict:
@@ -147,4 +148,8 @@ if __name__ == "__main__":
   # 而 ensure_ascii=False 则可以保持中文的原始编码。
   print(json.dumps(final_state,indent=2,ensure_ascii=False))
   print("-" * 50)
+  # get_graph() —— 从编译好的图里取出图的结构信息
+  # print_ascii() —— 用 ─ │ ┌ ┐ ▼ 这类
+  # ASCII
+  # 字符画出节点和箭头
   kb_import_graph_app.get_graph().print_ascii()

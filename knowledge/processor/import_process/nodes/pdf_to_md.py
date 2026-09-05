@@ -71,9 +71,9 @@ class PdfToMdNode(BaseNode):
     )
 
     for line in proc.stdout:
-      print(line.rstrip())
+      print(line.rstrip())   #rstrip() 去掉行尾换行符，避免打印出双倍空行。
 
-    processed_code = proc.wait()
+    processed_code = proc.wait()  #wait() 阻塞直到子进程结束。返回的整数是退出码：0 = 成功，非 0 = 失败。
 
     return processed_code
 

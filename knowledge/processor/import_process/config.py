@@ -8,7 +8,7 @@ from typing import Set, Optional
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv() #加载 .env 文件到环境变量
 
 """
 @dataclass:是 Python 3.7+ 引入的装饰器，用于自动生成类的样板代码。
