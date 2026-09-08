@@ -414,7 +414,7 @@ class MdImgNode(BaseNode):
     # 获取图片上下文
     imageinfo_list:List[ImageInfo] = self.image_scanner.scan_img_dir(
       md_content,
-      images_dir,
+      images_dir, 
       image_extensions=self.config.image_extensions, # 图片扩展名 {"jpg","png","jpeg","gif"}
       context_length=self.config.img_content_length  # 图片上下文长度
     )
@@ -435,7 +435,7 @@ class MdImgNode(BaseNode):
       document_name = md_path_obj.stem,   # 作为MinIO对象名的目录前缀（万用表/图1.png），隔离不同文档的同名图
       md_content = md_content,            # 原始MD全文，替换的基准文本
       imageinfo_list = imageinfo_list,    # 需要上传的图片清单
-      summaries = summaries,              # 上一步的摘要，写进图片alt文本 ![摘要](URL)
+      summaries = summaries,               # 上一步的摘要，写进图片alt文本 ![摘要](URL)
       minio_bucket = self.config.minio_bucket,      # 存储桶名，来自 .env 的 MINIO_BUCKET
       minio_endpoint = self.config.get_minio_base_url()   # 拼接远程URL用的服务地址（http://IP:9000）
     )
