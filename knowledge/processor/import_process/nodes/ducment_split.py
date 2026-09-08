@@ -1,6 +1,8 @@
+import os
 import re
 from typing import Any, Dict, List, Tuple
 
+import json
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from knowledge.processor.import_process.base import BaseNode, setup_logging
@@ -23,10 +25,10 @@ class DocumentSplitNode(BaseNode):
     sections:List[Dict[str,Any]] = self._split_by_title(md_content, file_title)
 
     # 3. 处理(切分和合并)
-    final_chunks:List[Dict[str,Any]] = self.split_and_merge(sections, max_content_length, min_content_length)
+    final_sections:List[Dict[str,Any]] = self.split_and_merge(sections, max_content_length, min_content_length)
 
     # 4. 组装
-    chunks = self._assemble_chunk(final_chunks)
+    chunks = self._assemble_chunk(final_sections)
 
     # 5. 更新state:chunks
     state['chunks'] = chunks
@@ -37,13 +39,6 @@ class DocumentSplitNode(BaseNode):
     # 7. 备份
     self._backup_chunks(state, chunks)
 
-
-
-
-
-
-
- 
 
     # 8. 返回
     return state
@@ -73,7 +68,7 @@ class DocumentSplitNode(BaseNode):
   def _split_by_title(self,md_content,file_title)->List[Dict[str,Any]]:
     sections:List[Dict[str,Any]] = []   # 成品：section字典的列表
     in_fence = False  #是否在围栏内（围栏内的 # 是shell注释，不能当标题）
-    heading_re = re.compile(f"^\s*(#{1,6})\s+.+")  #匹配标题正则表达式；括号捕获#串，便于数长度得等级
+    heading_re = re.compile(r"^\s*(#{1,6})\s+.+")  #匹配标题正则表达式；括号捕获#串，便于数长度得等级
     body:List[str] = []   #收集正文内容（当前section的"篮子"）
     content_lines = md_content.split("\n")  # 逐行处理，行是最小判断单位
     current_title = ""  # 当前标题
@@ -223,72 +218,145 @@ class DocumentSplitNode(BaseNode):
 
     return sub_sections
 
+  # 合并过短的章节
+  def merge_short_section(self, current_sections: List[Dict[str, Any]],min_content_length: int)->List[Dict[str, Any]]:
+    """
+    贪心累加算法合并过短的章节
+    局限性：
+    1. 撑破最小的阈值：大一点不用管
+    2. 孤儿小块：也不用管（大量都是小块）
+    """
+    # 1. 定义变量
+    # 双指针模型：current_section 是"正在装的箱子"，遍历时不断吸收相邻小节；
+    # final_sections 是"已封箱的箱子堆"，装满了/换爹了的箱子会被放进去
+    current_section = current_sections[0]
+    final_sections:List[Dict[str, Any]] = []  # 最终的箱子
 
-  def merge_short_section(self, current_sections: List[Dict[str, Any]],min_content_length: int):
-      """
-      贪心累加算法合并过短的章节
+    # 2. 遍历以及合并（current 是被合并方，next 是待吸收方）
+    for next_section in current_sections[1:]:
+      # 同源检查：只有挂在同一个父标题下的小节才允许合并，避免跨章节内容"串味"
+      same_parent = (current_section['parent_title'] == next_section['parent_title'])
 
-      局限性：
-      1. 撑破最小的阈值：大一点不用管
-      2. 孤儿小块：也不用管（大量都是小块）
-      """
-      # 1. 定义变量
-      current_section = current_sections[0]
-      final_sections = []  # 最终的箱子
+      # 合并条件：同源 且 当前箱子还没装满（body 长度低于最小阈值）
+      # 注意：只判断 current 的长度、不判断 next 的长度，
+      # 所以合并结果可能超过 min_content_length（即 docstring 说的局限性1"撑破阈值"）
+      if same_parent and len(current_section.get('body')) < min_content_length:
+        # body的合并：去首尾空白后用空行拼接，保持 Markdown 段落分隔
+        current_section['body'] = (
+            current_section.get('body').rstrip() + "\n\n" + next_section.get('body').lstrip()
+        )
+        # 更新 current_title：合并后横跨多个小节，原标题已不准确，统一"降级"为父标题
+        # part=0 是"本块被合并过"的标记，稍后第4步会重新编号
+        current_section['title'] = current_section['parent_title']
+        current_section['part'] = 0
+      else:
+        # 装不下了（或换爹了）：把 current_section 封箱，next_section 成为新的工作箱
+        final_sections.append(current_section)
+        # 更新 next_section
+        current_section = next_section
 
-      # 2. 遍历以及合并
-      for next_section in current_sections[1:]:
-          # 同源检查
-          same_parent = (current_section['parent_title'] == next_section['parent_title'])
+    # 循环结束时 current_section 还悬在外面（没有下一个触发封箱），补一刀封箱
+    final_sections.append(current_section)
 
-          if same_parent and len(current_section.get('body')) < min_content_length:
-              # body的合并
-              current_section['body'] = (
-                  current_section.get('body').rstrip() + "\n\n" + next_section.get('body').lstrip()
-              )
-              # 更新 current_title
-              current_section['title'] = current_section['parent_title']
-              current_section['part'] = 0
-          else:
-              # 将原来 current_section 进行封箱
-              final_sections.append(current_section)
-              # 更新 next_section
-              current_section = next_section
+    # 4. 只对合并块（part=0）重新编号；切分块在 split_long_section 已拼过 "-N" 后缀，再加会产出 "A-1- 1" 双重编号
+    part_counter = {}  # 计数器：{父标题:。 已编号个数}
+    result = []  # 最终结果
+    for final_section in final_sections:
+      if "part" in final_section:  # 只处理切分/合并过的块；普通章节无 part 字段，原样跳过
+        parent_title = final_section.get('parent_title')  # 以父标题为分组 key
+        part_counter[parent_title] = part_counter.get(parent_title, 0) + 1  # 每个父标题独立计数 1、2、3...
+        new_part = part_counter[parent_title]  # 本块的新序号
+        final_section['part'] = new_part  # 写回 part
+        final_section['title'] = final_section['title'] + f"- {new_part}"  # 标题追加序号，保证 chunk 标题唯一
 
-      # 最后一个（封装起来）
-      final_sections.append(current_section)
+      result.append(final_section)  # 封箱
 
-      # 4. 对所有 section 的 part 做处理
-      part_counter = {}
-      result = []
-      for final_section in final_sections:
-          if "part" in final_section:
-              parent_title = final_section.get('parent_title')
-              part_counter[parent_title] = part_counter.get(parent_title, 0) + 1
-              new_part = part_counter[parent_title]
-              final_section['part'] = new_part
-              final_section['title'] = final_section['title'] + f"- {new_part}"
-
-          result.append(final_section)
-
-      return result
+    return result
 
 
+  # 组装 chunks：把内部 section 格式转换成入库用的 chunk 格式（body 并入 content，丢掉多余字段）
+  def _assemble_chunk(self, final_chunks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """最终组合 chunk"""
+    self.log_step("step4", "组装最终的切片信息...")
+    chunks = []  # 成品列表
+
+    for chunk in final_chunks:
+      # 1. 获取 chunk 的信息
+      title = chunk.get('title')
+      file_title = chunk.get('file_title')
+      parent_title = chunk.get('parent_title')
+      body = chunk.get('body')
+      content = f"{title}\n\n{body}"  # 标题+正文拼成向量化内容：检索命中后 embedding 同时覆盖标题语义
+
+      # 2. 构建最终 chunk 对象（只保留入库需要的字段，body 已并入 content 故丢弃）
+      assemble_chunk = {
+        "title": title,            # 切片标题（可能带 "- 1" 分块序号）
+        "file_title": file_title,  # 所属文件名
+        "parent_title": parent_title,  # 父标题（溯源章节）
+        "content": content,        # 实际送去 embedding 的文本
+      }
+
+      # 3. 判断 part 是否存在（切分/合并过的块才有；普通块不带，保持元数据干净）
+      if "part" in chunk:
+        assemble_chunk['part'] = chunk.get('part')
+
+      chunks.append(assemble_chunk)
+
+    return chunks  # [{title, file_title, parent_title, content, part?}, ...] 供写入 state['chunks']
+
+
+
+  # 输出切分统计：纯日志，方便人工核对切分效果（切了多少块、标题长啥样），不影响业务数据
+  def _log_summary(self, raw_content: str, chunks: List[dict], max_length: int):
+    """输出切分统计信息"""
+    self.log_step("step5", "输出统计")
+
+    lines_count = raw_content.count("\n") + 1  # 行数=换行符数+1（最后一行没有换行符）
+    self.logger.info(f"原文档行数: {lines_count}")
+    self.logger.info(f"最终切分章节数: {len(chunks)}")
+    self.logger.info(f"最大切片长度: {max_length}")
+
+    if chunks:
+      self.logger.info("章节预览:")
+      for i, sec in enumerate(chunks[:5]):  # 只预览前5个，避免日志刷屏
+        title = sec.get("title", "")[:30]  # 标题截断到30字符
+        self.logger.info(f"  {i + 1}. {title}...")
+      if len(chunks) > 5:  # 剩余的只报个数
+        self.logger.info(f"  ... 还有 {len(chunks) - 5} 个章节")
+
+  # 备份切片结果到 chunks.json：调试/排障用，失败只警告不抛异常（备份是辅助功能，不能拖垮主流程）
+  def _backup_chunks(self, state: ImportGraphState, sections: List[dict]):
+    """将切分结果备份到 JSON 文件"""
+    self.log_step("step6", "备份切片")
+
+    local_dir = state.get("file_dir", "")  # 从 state 取输出目录
+    if not local_dir:  # 没配目录就直接跳过（比如内容来自数据库而非本地文件）
+      self.logger.debug("未设置 file_dir，跳过备份")
+      return
+
+    try:
+      os.makedirs(local_dir, exist_ok=True)  # 目录不存在则创建，已存在不报错
+      output_path = os.path.join(local_dir, "chunks.json")  # 固定文件名，方便下游/人工查看
+      with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(sections, f, ensure_ascii=False, indent=2)  # ensure_ascii=False 保留中文原文
+      self.logger.info(f"已备份到: {output_path}")
+    except Exception as e:  # 兜底：磁盘满、权限不足等都不让主流程中断
+      self.logger.warning(f"备份失败: {e}")
 
 
 
 if __name__ == '__main__':
-    setup_logging()
+  setup_logging()
 
-    document_node = DocumentSplitNode()
-    # 构造状态字典
-    file_path = r"C:\Users\14207\Desktop\doc\temp_dir\万用表RS-12的使用\auto\万用表RS-12的使用_new.md"
-    with open(file_path, "r", encoding="utf-8") as f:
-        content = f.read()
+  document_node = DocumentSplitNode()
+  # 构造状态字典
+  file_path = r"C:\Users\14207\Desktop\doc\temp_dir\万用表RS-12的使用\auto\万用表RS-12的使用_new.md"
+  with open(file_path, "r", encoding="utf-8") as f:
+      content = f.read()
 
-    state = {
-        "file_title": "万用表的使用",
-        "md_content": content,
-        "file_dir": r"C:\Users\14207\Desktop\doc\temp_dir\万用表RS-12的使用\auto"
-    }
-    document_node.process(state)
+  state = {
+      "file_title": "万用表的使用",
+      "md_content": content,
+      "file_dir": r"C:\Users\14207\Desktop\doc\temp_dir\万用表RS-12的使用\auto"
+  }
+  document_node.process(state)
