@@ -17,21 +17,21 @@
 ```
 entry_node
    ├── (PDF) ──> pdf_to_md_node ──┐
-   │                              ├──> md_img_node ──> document_split_node
-   └── (MD) ──────────────────────┘        │
-                                           v
-                        import_milvus_node <── bge_embedding_node <── item_name_rec_node
+   │                              ├──> md_img_node ──> document_split_node ──> item_name_rec_node
+   └── (MD) ──────────────────────┘                                        │
+                                                                           v
+                                                        bge_embedding_node ──> import_milvus_node
 ```
 
-| 节点                  | 职责                                                  |
-| --------------------- | ----------------------------------------------------- |
-| `entry_node`          | 校验文件、按后缀路由（.pdf / .md）                    |
-| `pdf_to_md_node`      | 调用 MinerU 将 PDF 转为 Markdown                      |
-| `md_img_node`         | 扫描图片上下文 → VLM 生成摘要 → 上传 MinIO 并替换链接 |
-| `document_split_node` | Markdown 切片                                         |
-| `item_name_rec_node`  | LLM 识别切片所属商品名                                |
-| `bge_embedding_node`  | BGE-M3 向量化                                         |
-| `import_milvus_node`  | 写入 Milvus 向量库                                    |
+| 节点                  | 职责                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| `entry_node`          | 校验文件、按后缀路由（.pdf / .md）                                                   |
+| `pdf_to_md_node`      | 调用 MinerU 将 PDF 转为 Markdown                                                     |
+| `md_img_node`         | 扫描图片上下文 → VLM 生成摘要 → 上传 MinIO 并替换链接                                |
+| `document_split_node` | 按标题层级切片，超长二次切分、过短贪心合并                                           |
+| `item_name_rec_node`  | LLM 识别商品名 → BGE-M3 双向量写入独立商品名集合（`kb_item_names_v1`）→ 回填每个切片 |
+| `bge_embedding_node`  | BGE-M3 对切片向量化（dense + sparse 双路）                                           |
+| `import_milvus_node`  | 切片向量写入 Milvus 知识库集合                                                       |
 
 ### 查询流程（`knowledge/processor/query_process/`）
 
@@ -45,9 +45,9 @@ item_name_confirm ──(无答案)──> multi_search ──┬──> search_
 
 ```
 knowledge/
-├── api/            # FastAPI 路由（开发中）
+├── api/            # FastAPI 路由文件（import / query 路由占位）
 ├── core/           # 路径、依赖等基础设施
-├── front/          # 前端页面（chat.html / import.html）
+├── front/          # 前端页面原型（chat.html / import.html）
 ├── processor/
 │   ├── import_process/   # 导入流水线（LangGraph）
 │   └── query_process/    # 查询流水线（LangGraph）
@@ -69,7 +69,6 @@ knowledge/
 | 对象存储 | MinIO（图片）                                   |
 | 对话历史 | MongoDB                                         |
 | 联网搜索 | MCP（DashScope WebSearch）                      |
-| Web 框架 | FastAPI（规划中）                               |
 
 ## 快速开始
 
@@ -116,15 +115,9 @@ python processor/import_process/main_graph.py
 
 修改文件末尾 `import_file_path` / `file_dir` 为你的文档路径，即可看到逐节点流式执行日志。
 
-## 开发状态
+## 项目现状
 
-- ✅ 导入流水线：entry / pdf_to_md 已可用；md_img（图片 VLM 摘要 + MinIO 替换）开发中
-- ✅ 查询流水线：多路检索 / RRF / Rerank / 回答输出
-- 🚧 API 层（`api/`）：路由骨架已建，待实现
-- 🚧 前端页面：`front/` 原型
-
-## 后续计划
-
-- [ ] 完成 `md_img_node`：图片上下文扫描、VLM 摘要、MinIO 上传与链接替换、文档备份
-- [ ] FastAPI 接口：文件上传导入 + SSE 任务进度推送 + 问答接口
-- [ ] 前端联调与部署脚本
+- **导入流水线**：7 个节点代码均已实现（`entry` → `pdf_to_md` → `md_img` → `document_split` → `item_name_rec` → `bge_embedding` → `import_milvus`）；其中 `document_split`（标题切片 + 超长二次切分 / 过短贪心合并）与 `item_name_rec`（LLM 识别商品名 + 双向量写入 Milvus 商品名集合）已端到端单节点验证跑通
+- **查询流水线**：多路并行检索（向量 / HyDE / 联网 MCP）→ RRF 融合 → Rerank → 流式回答，节点代码均已实现
+- **前端**：`front/` 下 `chat.html`（问答）与 `import.html`（导入）两个页面原型
+- **API 层**：`api/` 下 `import_router.py` / `query_router.py` 路由文件已建，目前为占位空文件
