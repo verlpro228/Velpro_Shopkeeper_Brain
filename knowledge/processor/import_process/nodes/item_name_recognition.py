@@ -113,7 +113,7 @@ class ItemNameRecognitionNode(BaseNode):
 
       # 6. 正常路径：返回 LLM 识别到的商品名
       self.logger.info(f"LLM提取到商品名: {llm_result}")
-      return json.loads(llm_result).get("item_name")
+      return json.loads(llm_result).get("item_name")  #json.loads() 就是把 JSON 格式的字符串转换成 Python 对象的方法。
     except Exception as e:
       # 7. 异常兜底：网络/限流/模型超时等任何异常都吞掉，降级用标题，不让主流程因 LLM 失败而中断
       self.logger.error(f"LLM调用失败，降级使用标题: {file_title}，异常: {e}")
@@ -165,6 +165,7 @@ class ItemNameRecognitionNode(BaseNode):
 
     try:
       # 3. 集合不存在则先建（首次导入时自动初始化 schema/索引），保证 insert 不报"集合不存在"
+      # has_collection 是 Milvus 官方内置的方法，用来判断某个 collection 是否存在。
       if not milvus_client.has_collection(item_name_collection):
         self._create_item_name_collection(item_name_collection, milvus_client)
 
@@ -194,6 +195,7 @@ class ItemNameRecognitionNode(BaseNode):
     schema.add_field(field_name="sparse_vector", datatype=DataType.SPARSE_FLOAT_VECTOR)  # 稀疏向量（无需指定维度）
 
     # 2. 为两个向量字段分别建索引：dense 用 AUTOINDEX+余弦相似度，sparse 用倒排索引+内积
+    # 用来生成一个"索引参数配置器"（对象），用于定义集合的索引参数。
     index_param = milvus_client.prepare_index_params()
     index_param.add_index(field_name="dense_vector", index_name="dense_vector_index",
                           index_type="AUTOINDEX", metric_type="COSINE")  # COSINE：按向量夹角衡量语义相似度

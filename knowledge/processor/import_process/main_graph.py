@@ -139,6 +139,7 @@ def run_import_graph(import_file_path:str,file_dir:str)->dict:
 
 if __name__ == "__main__":
   setup_logging()
+  
   import_file_path = r"C:\Users\14207\Desktop\doc\万用表RS-12的使用.pdf"
   file_dir = r"C:\Users\14207\Desktop\doc\temp_dir"
   final_state = run_import_graph(import_file_path,file_dir)

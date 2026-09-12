@@ -16,7 +16,7 @@ from pathlib import Path
 import re
 
 import base64
-from langchain_openai import OpenAI
+from openai import OpenAI
 
 from knowledge.processor.import_process.exceptions import FileProcessingError, StateFieldError, ValidationError
 from knowledge.processor.import_process.state import ImportGraphState
@@ -383,7 +383,7 @@ class ImageUploader:
       image_url_md = Path(original_url).name  #图片在md中的文件名称 带扩展名
       for image_name,summary in summaries.items():
         if image_name == image_url_md:
-          return f"![{summary}({remote_urls[image_name]})"  # 匹配内容被替换后结果
+          return f"![{summary}]({remote_urls[image_name]})"  # 匹配内容被替换后结果
       return match.group(0)  # 正则表达式匹配到的原文
     # 替换MD中的图片引用
     return pattern.sub(replacer, md_content)
@@ -442,6 +442,10 @@ class MdImgNode(BaseNode):
 
     # 备份替换后的md文档
     self.md_file_handler.backup(md_path_obj,new_md_content)
+
+    # 回写状态：下游 document_split_node 从 state['md_content'] 读内容，
+    # 不回写的话有图路径下它会因取不到内容而抛 StateFieldError（链路断裂点）
+    state["md_content"] = new_md_content
 
     return state
 
