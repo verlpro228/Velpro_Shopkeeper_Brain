@@ -72,6 +72,7 @@ class BaseNode(ABC):
             self.logger.info(f"--- {self.name} 开始 ---")
             if task_id:
                 add_running_task(task_id, self.name)
+            
 
             start_time = time.time()
 
