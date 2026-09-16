@@ -19,8 +19,27 @@ from json import JSONDecodeError
 基于用户的原始问题和历史对话提取用户真正想问的商品名
 """
 
+# ============================================================================
+# 【节点地图】本文件 = 查询流程第一个节点，回答"用户到底在问哪个商品"
+#
+# 数据流：
+#   original_query + 历史对话(最近10条)
+#     → ① ItemNameExtractor：LLM 提取商品名 + 改写问题（失败自动兜底降级）
+#     → ② ItemNameAligner._match_vector：BGE-M3 向量化 → Milvus 混合检索 → 候选+分数
+#     → ③ _item_name_score_align：按分数分层 → confirmed(直接确认) / options(问用户)
+#     → ④ _item_name_score_filter：confirmed 多于 1 个时，剔除与最高分差距 >0.15 的误判
+#     → ⑤ Node._decide 决策写入 state：
+#         有 confirmed  → state['item_names'] + ['rewritten_query']，下游走三路检索
+#         仅有 options  → state['answer'] = 反问用户（answer 非空即"拦截"，不再检索）
+#         两者皆空      → state['answer'] = 无法识别
+#
+# 三个类分工：Extractor 问 LLM，Aligner 问向量库，Node 负责串联与最终决策
+# ============================================================================
+
 
 class ItemNameExtractor:
+  # LLM 提取器：多轮对话中用户常说"它/这个"，单看当前问题提取不出商品名，
+  # 需把历史对话一并交给 LLM；任何环节失败都回退兜底结果（空列表 + 原始问题），保证流程不中断
   def __init__(self, logger, node_name):
     self.logger = logger
     self.node_name = node_name
@@ -110,6 +129,7 @@ class ItemNameAligner:
     self.node_name = node_name
 
   # 向量匹配 评分对齐 分数过滤
+  # 对齐器主入口，三步串行流水线；返回 (confirmed 确认列表, options 候选列表)
   def match_align_filter(self, item_names: List[str],item_name_collection: str) -> Tuple[List[str], List[str]]:
     # confirmed = []
     # options = []
@@ -166,6 +186,7 @@ class ItemNameAligner:
       return result
     
     # 将商品名称向量化 用于混合检索的条件
+    # 一次性批量向量化所有提取名，下面逐个执行检索（每个提取名 = 一次混合搜索）
     embedding_result = generate_bge_m3_hybrid_vectors(bge_m3_client, item_names)
 
     for index,extract_item_name in enumerate(item_names):
@@ -236,18 +257,19 @@ class ItemNameAligner:
           picked = extract["item_name"]
           if picked not in confirmed:
             confirmed.append(picked)
-        # 场景2
+        # 场景2：唯一高分但与提取名不完全一致 → 视为同一商品的不同写法，直接确认
         elif len(high) == 1:
           picked = high[0]["item_name"]
           if picked not in confirmed:
             confirmed.append(picked)
+        # 场景3：多个高置信候选且无精确同名 → 无法替用户做主，全部放入 options 反问
         else:
           for h in high[:3]:
             picked = h["item_name"]
             if picked not in options and picked not in confirmed:
               options.append(picked)
       else:
-        # 处理中置信
+        # 处理中置信（0.6~0.7：达不到确认标准，只作为候选让用户选择）
         mid = [match for match in sorted_matches
           if match['score'] >= 0.6 
           and match.get('item_name') not in options 
@@ -257,11 +279,14 @@ class ItemNameAligner:
             picked = m["item_name"]
             options.append(picked)
 
+    # options 最多返回 3 个，避免反问用户时选项过多
     return confirmed, options[:3]
 
 
   def _item_name_score_filter(self, confirmed: List[str], search_results: List[Dict[str, Any]]):
     """分数差异过滤，剔除误判"""
+    # 为什么需要：用户一句话可能提到多个商品，但库里未必都有；
+    # 若某个 confirmed 的分数远低于其他（如 0.9 vs 0.4），大概率是向量检索"硬凑"出来的误匹配
     # 1. 收集每个已确认商品名在所有搜索结果中的最高分
     item_name_score = {}
     for search_result in search_results:
@@ -283,6 +308,9 @@ class ItemNameAligner:
 
 class ItemNameConfirmNode(BaseNode):
   # 商品名称确认节点：结合历史对话提取商品名并重写问题，决定后续检索走向
+  # 输入 state：session_id、original_query
+  # 输出 state：item_names(确认商品)、rewritten_query(改写问题)、
+  #             answer(拦截话术，非空则主图路由直接结束、不再检索)、history(历史对话)
   name = "item_name_confirm"
 
   def __init__(self):
@@ -311,6 +339,7 @@ class ItemNameConfirmNode(BaseNode):
     # 3.向量匹配 评分对齐  分数过滤
     confirmed: List[str] = []
     options: List[str] = []
+    # 提取名列表为空（LLM 兜底结果）则跳过对齐，confirmed/options 保持为空 → 最终走"无法识别"分支
     if item_names:
       confirmed, options = self.item_name_aligner.match_align_filter(item_names,self.config.item_name_collection)
 
@@ -323,14 +352,17 @@ class ItemNameConfirmNode(BaseNode):
 
   def _decide(self, state: QueryGraphState, item_names: List[str],confirmed: List[str], options: List[str], rewritten_query: str):
     """根据对齐结果更新 state"""
+    # 分支1：有确认商品 → 写入检索要素，主图条件边据此路由到"三路检索"
     if confirmed:
       state['rewritten_query'] = rewritten_query
       state['item_names'] = confirmed
+    # 分支2：只有候选 → answer 非空即"拦截"，直接反问用户，不再检索
     elif options:
       state['answer'] = (
         f"我不确定您指的是哪款产品。"
         f"您是在询问以下产品吗：{'、'.join(options)}？"
       )
+    # 分支3：确认与候选都为空 → 直接告知无法识别（同样走拦截）
     else:
       state['answer'] = "抱歉，我无法识别您询问的具体产品名称，请提供更准确的产品名称或型号。"
 
