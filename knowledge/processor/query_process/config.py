@@ -33,7 +33,7 @@ class QueryConfig:
     default_factory=lambda: int(os.getenv("RERANK_MAX_TOP_K", "10"))
   )
   rerank_min_top_k: int = field(
-    default_factory=lambda: int(os.getenv("RERANK_MIN_TOP_K", "3"))
+    default_factory=lambda: int(os.getenv("RERANK_MIN_TOP_K", "2"))
   )
   rerank_gap_abs: float = field(
     default_factory=lambda: float(os.getenv("RERANK_GAP_ABS", "0.15"))
