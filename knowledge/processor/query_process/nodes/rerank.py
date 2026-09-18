@@ -115,9 +115,10 @@ class RerankNode(BaseNode):
       截断数量被 [min_top_k, max_top_k] 夹住,随每次 query 分数分布动态变化,而非固定 top_k。
     """
     # 上界:即使用户配了更大的 max,最多也只返回实际文档数量
-    upper_bound = min(self.config.rerank_max_top_k, len(rerank_docs))
+    # （阈值统一走形参，调用方已传入 self.config 的值，避免形参与 self.config 双轨不一致）
+    upper_bound = min(rerank_max_top_k, len(rerank_docs))
     # 下界:保底篇数,但也夹住不超过上界,防止 min > max 时越界
-    lower_bound = min(self.config.rerank_min_top_k, upper_bound)
+    lower_bound = min(rerank_min_top_k, upper_bound)
 
     # 只有 1 篇(或更少)无从断崖,直接返回
     if upper_bound <= 1:
@@ -137,7 +138,7 @@ class RerankNode(BaseNode):
 
       gap = current_score - next_score  # 降序,current>=next,gap>=0
 
-      if gap >= self.config.rerank_gap_abs:
+      if gap >= rerank_gap_abs:
         cut_off = i + 1  # 断崖在第 i、i+1 之间,取前 i+1 篇
         self.logger.info(f"第一断崖位置={cut_off}, gap={gap:.4f}")
         break

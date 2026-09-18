@@ -5,7 +5,7 @@ import shutil
 import uuid
 from pathlib import Path
 
-from fastapi import UploadFile
+from fastapi import HTTPException, UploadFile
 
 from knowledge.core.paths import get_local_base_dir
 from knowledge.processor.import_process.config import get_config
@@ -17,6 +17,11 @@ from knowledge.utils.task_util import add_running_task, add_done_task, TASK_STAT
 
 logger = logging.getLogger(__name__)
 
+# 上传校验常量：后缀白名单必须与 entry 节点支持的格式保持一致，
+# 在上传阶段就拦截非法文件，避免任务创建后到导入流程才报 FAILED
+ALLOWED_SUFFIXES = {".pdf", ".md"}
+MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB，防止超大文件打爆磁盘与下游转换流程
+
 class ImportFileService:
     """
     处理上传文件业务层类
@@ -25,6 +30,9 @@ class ImportFileService:
         """
         完成文件上传业务处理。  双写： 保存到本地  and  保存minio
         """
+
+        #0.上传前置校验（文件名安全/类型白名单/大小上限），失败抛 400，不产生任务不落盘
+        safe_filename = self._validate_upload(file)
 
         #1.生成task_id
         task_id = self._generate_task_id()
@@ -43,9 +51,9 @@ class ImportFileService:
         #D:\PyProjects\shopkeeper_brain\knowledge\temp_data\20260913\absdfdre\万用表RS-12的使用.pdf
         import_file_path = self._upload_file_to_local(file, file_dir)
 
-        #3.2 保存到minio     file.name用于minio存储子路径名称
+        #3.2 保存到minio     file.name用于minio存储子路径名称（用净化后的文件名，防路径成分混入对象key）
         #   http://192.168.10.151:9000/knowledge-base-files/origin_files/20260913/万用表RS-12的使用.pdf
-        self._upload_file_to_minio(import_file_path,file.filename)
+        self._upload_file_to_minio(import_file_path,safe_filename)
 
         add_done_task(task_id,"upload_file")
 
@@ -71,6 +79,33 @@ class ImportFileService:
             update_task_status(task_id, TASK_STATUS_FAILED)
             logger.info(f"导入流程执行出错: {e}")
 
+
+    def _validate_upload(self, file: UploadFile) -> str:
+        """上传前置校验：文件名安全 + 扩展名白名单 + 大小上限。
+
+        逐项校验、快速失败，全部通过才允许创建任务与落盘：
+        1. 文件名非空且不含路径成分（Path.name 不等于原名说明带了 / \\ 等分隔符，
+           防止 ../../ 目录穿越把文件写到 task 目录之外）
+        2. 后缀必须在白名单内（与 entry 节点支持的 .pdf/.md 一致）
+        3. 大小非 0 且不超过上限（先 seek 到文件尾读 size，再复位读指针，
+           保证后续 copyfileobj 从头完整写入）
+        校验失败抛 HTTPException(400)，路由层无需额外捕获即可返回明确错误。
+        返回净化后的文件名，供 MinIO 对象 key 使用。
+        """
+        filename = file.filename or ""
+        if not filename or Path(filename).name != filename:
+            raise HTTPException(status_code=400, detail="非法文件名")
+        suffix = Path(filename).suffix.lower()
+        if suffix not in ALLOWED_SUFFIXES:
+            raise HTTPException(status_code=400, detail=f"不支持的文件类型: {suffix}，仅支持 {sorted(ALLOWED_SUFFIXES)}")
+        file.file.seek(0, 2)
+        size = file.file.tell()
+        file.file.seek(0)  # 复位读指针，后续保存本地时从头写
+        if size <= 0:
+            raise HTTPException(status_code=400, detail="文件内容为空")
+        if size > MAX_FILE_SIZE:
+            raise HTTPException(status_code=400, detail=f"文件过大（{size} 字节），上限 {MAX_FILE_SIZE} 字节")
+        return Path(filename).name
 
     def _generate_task_id(self):
         return uuid.uuid4().hex[:8]  # 生成8位随机数作为task_id

@@ -16,6 +16,10 @@ class SSEEvent:
 # Key: task_id, Value: queue.Queue
 _task_stream: Dict[str, queue.Queue] = {}
 
+# 心跳帧周期（秒）：queue.get 超时为 1 秒/次，连续空转该次数后发送一帧 SSE 注释
+# 帧给代理/浏览器，防止长时间无数据被 nginx 等中间层判定空闲而掐断连接
+KEEPALIVE_INTERVAL_SECONDS = 15
+
 
 def get_sse_queue(task_id: str) -> Optional[queue.Queue]:
     """获取指定任务的队列"""
@@ -80,6 +84,9 @@ async def sse_generator(task_id: str, request: Request) -> AsyncGenerator:
 
     loop = asyncio.get_event_loop()
 
+    # 空转计数：queue.get 每次最多阻塞 1 秒，累计到心跳周期就发一帧注释帧
+    idle_rounds = 0
+
     # 3. 让当前线程一直从队列中获取数据【如果队列一旦有数据，就直接获取，如果队列没有数据，等一会，在问一下】
     try:
         while True:
@@ -90,6 +97,7 @@ async def sse_generator(task_id: str, request: Request) -> AsyncGenerator:
             try:
                 # 3.2 从队列中获取(阻塞队列---)为了让事件循环不阻塞，
                 msg = await loop.run_in_executor(None, sse_queue.get, True, 1)
+                idle_rounds = 0  # 有真实事件说明连接活跃，重新计数
                 # 3.3 获取事件类型
                 event_type = msg.get('event')
                 # 3.4 获取事件数据
@@ -97,6 +105,12 @@ async def sse_generator(task_id: str, request: Request) -> AsyncGenerator:
                 # 3.5 打包返回
                 yield _sse_pack(event_type, event_data)  # 打包并且通过yield返回
             except queue.Empty:
+                idle_rounds += 1
+                if idle_rounds >= KEEPALIVE_INTERVAL_SECONDS:
+                    idle_rounds = 0
+                    # SSE 注释帧（以冒号开头）：前端 EventSource 不触发任何事件处理，
+                    # 但会刷新代理的空闲计时器，防止连接被中间层掐断
+                    yield ": keepalive\n\n"
                 logging.info(f"队列为空...请稍等")
                 continue
     except  (ConnectionResetError, BrokenPipeError) as e:

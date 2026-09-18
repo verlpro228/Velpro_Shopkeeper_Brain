@@ -1,0 +1,1866 @@
+[
+    {
+        "type": "text",
+        "text": "用户指南",
+        "text_level": 2,
+        "bbox": [
+            667,
+            286,
+            909,
+            334
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "footer",
+        "text": "业 HUAWEI",
+        "bbox": [
+            801,
+            858,
+            904,
+            933
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "目录",
+        "text_level": 2,
+        "bbox": [
+            57,
+            42,
+            159,
+            77
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "关于本手册  \n显示器外观和接口介绍  \n安装与拆卸显示器  \n显示器连接至计算机等设备  \n显示器开关机及 OSD 菜单设置  \n显示器菜单选项  \n支持的显示模式  \n常见问题  \n安全信息  \n法律声明",
+        "bbox": [
+            127,
+            89,
+            507,
+            428
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "page_number",
+        "text": "",
+        "bbox": [
+            947,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "关于本手册",
+        "text_level": 2,
+        "bbox": [
+            53,
+            42,
+            275,
+            77
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "使用设备前请仔细阅读本手册。",
+        "bbox": [
+            68,
+            109,
+            349,
+            128
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "手册中展示的组件可能未包含在设备内，您需要单独购买；手册中描述的功能可能需要与其他组件配合，才能使用；手册中的图形、界面可能和实际有差异，所有图示仅供参考，请以实际产品为准。",
+        "bbox": [
+            68,
+            135,
+            941,
+            200
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "page_number",
+        "text": "1",
+        "bbox": [
+            942,
+            965,
+            954,
+            979
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "显示器外观和接口介绍",
+        "text_level": 2,
+        "bbox": [
+            53,
+            42,
+            495,
+            78
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "image",
+        "img_path": "images/9f6cda05b10cb75c9c8bd5a7c618383f931dffd065447a00bd8b909a864fa048.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            75,
+            124,
+            361,
+            255
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "image",
+        "img_path": "images/56b6c55399e9528681b8dd14d22b1b62f06cba320d11936a56de8c0184cc7deb.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            388,
+            126,
+            680,
+            258
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "image",
+        "img_path": "images/9b0217e1c9acaf109dd6e5671f4e4ee195b52554c65ebe52859f36b31a16df3a.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            712,
+            168,
+            912,
+            255
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "table",
+        "img_path": "images/55e338c59ba073674fb4881cff71dbe03b696e8292f7e0e81f5c3cdf7407928c.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td rowspan=1 colspan=1>序列号</td><td rowspan=1 colspan=1>按键功能</td></tr><tr><td rowspan=1 colspan=1>1</td><td rowspan=1 colspan=1>显示器面板</td></tr><tr><td rowspan=1 colspan=1>2</td><td rowspan=1 colspan=1>立柱</td></tr><tr><td rowspan=1 colspan=1>3</td><td rowspan=1 colspan=1>底座</td></tr><tr><td rowspan=1 colspan=1>4</td><td rowspan=1 colspan=1>电源指示灯·开机状态白色常亮。·关机状态熄灭。• 睡眠状态白色闪烁。</td></tr><tr><td rowspan=1 colspan=1>5</td><td rowspan=1 colspan=1>电源键开启关闭显示器。</td></tr><tr><td rowspan=1 colspan=1>6</td><td rowspan=1 colspan=1>功能键调节显示器设置。详细内容，请查看《显示器开关机及OSD菜单设置》章节。</td></tr><tr><td rowspan=1 colspan=1>7</td><td rowspan=1 colspan=1>HDMI接口连接 HDMI 输入设备，如计算机。</td></tr><tr><td rowspan=1 colspan=1>8</td><td rowspan=1 colspan=1>VGA 接口连接VGA 输入设备，如计算机。</td></tr><tr><td rowspan=1 colspan=1>9</td><td rowspan=1 colspan=1>耳机接口连接耳机。</td></tr><tr><td rowspan=1 colspan=1>10</td><td rowspan=1 colspan=1>电源接口连接电源适配器，给显示器供电。</td></tr></table>",
+        "bbox": [
+            72,
+            265,
+            939,
+            807
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "page_number",
+        "text": "2",
+        "bbox": [
+            941,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "安装与拆卸显示器",
+        "text_level": 2,
+        "bbox": [
+            52,
+            42,
+            408,
+            77
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "安装",
+        "bbox": [
+            70,
+            109,
+            121,
+            128
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "image",
+        "img_path": "images/65fa6677a721ba610f07235e365aaeb5e72aef6d632ddf3c7018477e3d05aa3b.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            105,
+            147,
+            714,
+            468
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "1缓冲泡沫箭头朝上水平放置纸箱，打开纸箱包装，将整机和缓冲泡沫一起取出。",
+        "bbox": [
+            68,
+            527,
+            789,
+            548
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "2从缓冲泡沫中取出立柱和底座。",
+        "bbox": [
+            68,
+            554,
+            369,
+            573
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "3将立柱上端插入显示器背部的卡槽，听到咔哒声表示已安装好。然后将底座安装到立柱下端，听到咔哒声表示已安装好。",
+        "bbox": [
+            68,
+            580,
+            941,
+            623
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "4将组装好的显示器用双手托起，立在平整的桌面上，可根据需要调整俯仰角度。",
+        "bbox": [
+            68,
+            629,
+            793,
+            649
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "拆卸",
+        "bbox": [
+            70,
+            655,
+            119,
+            674
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "image",
+        "img_path": "images/2309928bd32906a928b042ef124897aa9626bf8293113f48c8f902ebad11a2e9.jpg",
+        "image_caption": [],
+        "image_footnote": [
+            "拆卸立柱：一只手按住显示器背部的快拆按钮，同时另外一只手向下拔出立柱，即可拆卸立柱。"
+        ],
+        "bbox": [
+            87,
+            709,
+            710,
+            916
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "page_number",
+        "text": "3",
+        "bbox": [
+            941,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "拆卸底座：一只手向内拨动底部的快拆拨片，同时另外一只手握住立柱向外顶出底座，即可拆卸底座。",
+        "bbox": [
+            68,
+            43,
+            942,
+            85
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "header",
+        "text": "安装与拆卸显示器",
+        "bbox": [
+            803,
+            21,
+            956,
+            36
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "page_number",
+        "text": "4",
+        "bbox": [
+            941,
+            966,
+            956,
+            979
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "显示器连接至计算机等设备",
+        "text_level": 2,
+        "bbox": [
+            53,
+            42,
+            583,
+            77
+        ],
+        "page_idx": 6
+    },
+    {
+        "type": "image",
+        "img_path": "images/382f5246fc8e52f327d5806504fd45f61d0cf0710eb48328617105e34bd22605.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            183,
+            148,
+            769,
+            317
+        ],
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "1 将 HDMI 线缆或 VGA 线缆一端接入显示器的 HDMI 接口或 VGA 接口，另一端接入计算机的 HDMI 接口或 VGA 接口。",
+        "bbox": [
+            70,
+            379,
+            932,
+            418
+        ],
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "2 将显示器和计算机的电源线等其他线缆连接好后开机，显示器屏幕上显示计算机的屏幕画面，代表连线成功。",
+        "bbox": [
+            68,
+            423,
+            922,
+            461
+        ],
+        "page_idx": 6
+    },
+    {
+        "type": "page_number",
+        "text": "5",
+        "bbox": [
+            941,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "显示器开关机及OSD菜单设置",
+        "text_level": 1,
+        "bbox": [
+            53,
+            42,
+            667,
+            77
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "image",
+        "img_path": "images/b5e779515f7ad4cbc8ba11b0a5c48dc17386aee375a9cab441020fdf6d23ca65.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            144,
+            147,
+            643,
+            379
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "开启与关闭显示器：",
+        "text_level": 2,
+        "bbox": [
+            68,
+            422,
+            248,
+            441
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "．开机：短按电源键（按键 5），显示器屏幕显示品牌Logo后，指示灯点亮，显示器开启。",
+        "bbox": [
+            68,
+            445,
+            892,
+            464
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "显示器工作时，指示灯点亮；显示器无信号输入时，进入待机状态，若菜单中LED电源按钮设置为“待机模式时开”，待机状态下指示灯白色闪烁。",
+        "bbox": [
+            75,
+            470,
+            934,
+            511
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "·关机：长按电源键（按键5）2秒以上，指示灯熄灭，显示器关机。",
+        "bbox": [
+            68,
+            516,
+            692,
+            536
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "设置显示器菜单：",
+        "text_level": 2,
+        "bbox": [
+            70,
+            544,
+            228,
+            562
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "1 显示器开机后，短按任意功能键，即可打开显示器设置菜单。",
+        "bbox": [
+            68,
+            574,
+            642,
+            593
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "2 在设置菜单界面，根据界面提示按1\\~5键，调节显示器的设置。",
+        "bbox": [
+            70,
+            600,
+            668,
+            620
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "table",
+        "img_path": "images/f8a40ec95664b0bce21f2ab6ca9bd724f330fb21c3d44ed954398fab32b58975.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td rowspan=2 colspan=1>物理按键</td><td rowspan=1 colspan=2>快捷菜单</td><td rowspan=1 colspan=2>主菜单</td></tr><tr><td rowspan=1 colspan=1>图示</td><td rowspan=1 colspan=1>说明</td><td rowspan=1 colspan=1>图示</td><td rowspan=1 colspan=1>说明</td></tr><tr><td rowspan=1 colspan=1>按键1</td><td rowspan=1 colspan=1><img src=\"images/9e1cd00e2ce56558fb1c41a2f3f941f12abbaf86d1725e82a33f618eaf24a154.jpg\"/></td><td rowspan=1 colspan=1>退出快捷菜单</td><td rowspan=1 colspan=1><img src=\"images/0ce03b0e5d33ddff4cada7a41c111ff482946000c9520f23849e2aa46b0ba2e0.jpg\"/></td><td rowspan=1 colspan=1>左移</td></tr><tr><td rowspan=1 colspan=1>按键2</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>快捷键功能🌍快速进入亮度设置菜单界面</td><td rowspan=1 colspan=1>个</td><td rowspan=1 colspan=1>上移</td></tr><tr><td rowspan=1 colspan=1>按键3</td><td rowspan=1 colspan=1>88</td><td rowspan=1 colspan=1>快捷键功能快速进入情景模式设置菜单界面</td><td rowspan=1 colspan=1><img src=\"images/304903fe19e0670c75f7a9802b5d5b91040c92602ae2762eba4313ecdc8c13b0.jpg\"/></td><td rowspan=1 colspan=1>下移</td></tr><tr><td rowspan=1 colspan=1>按键4</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>进入主菜单</td><td rowspan=1 colspan=1>→</td><td rowspan=1 colspan=1>右移</td></tr><tr><td rowspan=1 colspan=1>按键5</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>关机</td><td rowspan=1 colspan=1>1</td><td rowspan=1 colspan=1>确认</td></tr></table>",
+        "bbox": [
+            100,
+            620,
+            937,
+            928
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "page_number",
+        "text": "6",
+        "bbox": [
+            941,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "显示器菜单选项",
+        "text_level": 2,
+        "bbox": [
+            53,
+            42,
+            364,
+            77
+        ],
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "不同型号、不同版本的显示器、菜单选项存在差异，请以实际为准。",
+        "bbox": [
+            75,
+            109,
+            709,
+            129
+        ],
+        "page_idx": 8
+    },
+    {
+        "type": "table",
+        "img_path": "images/db9c388a977ee9aa33322b95cd9e676d1a73133654e4afe9740609a19a0539a3.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>一级菜单</td><td>二级菜单</td><td>描述</td></tr><tr><td rowspan=\"6\">情景模 式</td><td>P3 色彩</td><td>浏览P3 广色域图片或喜好鲜艳色彩的人士，建议选择P3 色彩。</td></tr><tr><td>sRGB 色彩</td><td>浏览计算机中的图片时，建议选择sRGB 色彩。</td></tr><tr><td>HDR 色彩</td><td>调色模拟HDR视频色彩效果，建议观赏影视场景使用。</td></tr><tr><td>游戏</td><td>游戏效果增强，建议游戏场景使用。</td></tr><tr><td>电子书</td><td>模拟纸质书籍效果，建议阅读场景使用。</td></tr><tr><td>用户</td><td>用户自定义显示效果。</td></tr><tr><td rowspan=\"8\">显示</td><td>亮度</td><td>设置范围为0-100。</td></tr><tr><td>对比度</td><td>设置范围为0-100。 i 此功能仅在用户/sRGB 色彩/P3 色彩模式下且关闭 护眼模式，才可使用。</td></tr><tr><td>锐利度</td><td>设置范围为0-100。</td></tr><tr><td>六色</td><td>可单独设置红色、绿色、蓝色、青色、品红色、黄色的色调 与饱和度，设置范围为0-100。 i 此功能仅在用户模式，才可使用。</td></tr><tr><td>护眼</td><td>可开启或关闭护眼模式。 i 长期阅读时，建议开启护眼模式，预防用眼疲劳，使 眼睛更加舒服。开启护眼模式后，屏幕显示偏黄为正 常现象。 此功能仅在用户/sRGB 色彩/P3 色彩模式下才可使 用，其余的情景模式下护眼模式默认为关。</td></tr><tr><td>色温</td><td>可设置为冷色、中性色、标准色、暖色模式的一种。 或者在用户自定义选项中，对红、绿、蓝颜色分别设置，设 置数值为0-100。 i 此功能仅在用户/sRGB 色彩/P3 色彩模式下且关闭 护眼模式，才可使用。</td></tr><tr><td>缩放</td><td>可选择满屏或等比缩放。</td></tr><tr><td colspan=\"1\" rowspan=\"1\"></td><td colspan=\"1\" rowspan=\"1\">VGA 设置</td><td colspan=\"1\" rowspan=\"1\">可设置VGA信号的水平位置、垂直位置、时钟、相位，设置数值为0-100。或者可使用自动调整功能，自动设置VGA 信号的水平位置、垂直位置、时钟、相位数值。i 此功能仅在连接VGA信号时，才可使用。</td></tr><tr><td colspan=\"1\" rowspan=\"2\"><img src=\"images/52388f807c8abaa63ed842af16a9630622791acbe73fc09d711007d1b40786e3.jpg\"/>输入源</td><td colspan=\"1\" rowspan=\"1\">HDMI</td><td colspan=\"1\" rowspan=\"2\">连接其他设备时，根据连接线缆，选择对应的输入源。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">VGA</td></tr><tr><td colspan=\"1\" rowspan=\"3\"><img src=\"images/442e2c973c250dd2a8c6cdd7e9831afb98792a528b4fba8b557f1db6de9f9021.jpg\"/>游戏辅助</td><td colspan=\"1\" rowspan=\"1\">刷新率</td><td colspan=\"1\" rowspan=\"1\">在游戏场景中，可以在此菜单中进行一些辅助设置。开启后，可选择在屏幕左上角或右上角显示刷新率。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">游戏准星</td><td colspan=\"1\" rowspan=\"1\">开启后，在屏幕上显示准星。并可将准星颜色设置为红色或绿色，也可对准星位置重置。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">响应时间</td><td colspan=\"1\" rowspan=\"1\">可开启或关闭响应时间。开启时，可选择标准、快、极快等响应时间。</td></tr><tr><td colspan=\"1\" rowspan=\"2\"><img src=\"images/b5c077b70aea849ecd6811085b1037c8f17814f33cf475050003a5f180e1f1cf.jpg\"/>快捷键</td><td colspan=\"1\" rowspan=\"1\">上</td><td colspan=\"1\" rowspan=\"1\">OSD快捷菜单上方的设置选项，默认为亮度，可设置为情景模式、响应时间、输入源、对比度等选项。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">下</td><td colspan=\"1\" rowspan=\"1\">OSD快捷菜单下方的设置选项，默认为情景模式，可设置为亮度、响应时间、输入源、对比度等选项。</td></tr><tr><td colspan=\"1\" rowspan=\"9\"><img src=\"images/62116dd99c216f0b74dfa7f8795fb9bb3b32cc857f801abd3391835cda82f76d.jpg\"/>设置</td><td colspan=\"1\" rowspan=\"1\">音量</td><td colspan=\"1\" rowspan=\"1\">可设置音量大小设置数值为0-100。i此功能仅在连接HDMI信号时，才可使用。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">语言</td><td colspan=\"1\" rowspan=\"1\">可设置为简体中文、英语。</td></tr><tr><td colspan=\"1\" rowspan=\"2\">菜单显示设置</td><td colspan=\"1\" rowspan=\"1\">菜单透明度：可设置菜单的显示透明度，设置数值为1-8，数字越大透明度越高。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">菜单显示时间：可将菜单显示时间设置为10-100秒。</td></tr><tr><td colspan=\"1\" rowspan=\"2\">LED 电源按钮</td><td colspan=\"1\" rowspan=\"1\">待机模式时开：待机状态下，显示器的指示灯白色闪烁。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">待机模式时关：待机状态下，显示器的指示灯熄灭。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">信息</td><td colspan=\"1\" rowspan=\"1\">可查看显示器的SN号、固件版本号、情景模式、分辨率、刷新率、输入源等信息。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">ECO Mode</td><td colspan=\"1\" rowspan=\"1\">选择开启或关闭节能模式。i 此功能默认关闭，打开后会减少能耗。开启节能模式后，亮度等选项将无法设置。</td></tr><tr><td colspan=\"1\" rowspan=\"1\">恢复出厂设置</td><td colspan=\"1\" rowspan=\"1\">选择是否将显示器菜单恢复出厂设置。</td></tr></table>",
+        "bbox": [
+            72,
+            136,
+            939,
+            877
+        ],
+        "page_idx": 8
+    },
+    {
+        "type": "page_number",
+        "text": "7",
+        "bbox": [
+            941,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 8
+    },
+    {
+        "type": "table",
+        "img_path": "",
+        "table_caption": [],
+        "table_footnote": [],
+        "bbox": [
+            73,
+            38,
+            939,
+            910
+        ],
+        "page_idx": 9
+    },
+    {
+        "type": "header",
+        "text": "显示器菜单选项",
+        "bbox": [
+            821,
+            20,
+            956,
+            35
+        ],
+        "page_idx": 9
+    },
+    {
+        "type": "page_number",
+        "text": "8",
+        "bbox": [
+            941,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "支持的显示模式",
+        "text_level": 2,
+        "bbox": [
+            52,
+            41,
+            366,
+            78
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "最大分辨率",
+        "bbox": [
+            70,
+            109,
+            179,
+            128
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "1920 x 1080 @ 75 Hz(HDMI)",
+        "bbox": [
+            68,
+            135,
+            366,
+            155
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "1920 x 1080 @ 75 Hz(VGA)",
+        "bbox": [
+            70,
+            160,
+            356,
+            181
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "推荐分辨率",
+        "bbox": [
+            70,
+            186,
+            181,
+            206
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "1920 x 1080 @ 60 Hz(HDMI)",
+        "bbox": [
+            70,
+            214,
+            366,
+            234
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "1920 x 1080 @ 60 Hz(VGA)",
+        "bbox": [
+            70,
+            239,
+            354,
+            259
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "table",
+        "img_path": "images/0bf975b91260253eedb2aae2f485fa142219e5e6fe63121159b13935aef6c84c.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td rowspan=1 colspan=1>分辨率</td><td rowspan=1 colspan=1>HDMI刷新率</td><td rowspan=1 colspan=1>VGA刷新率</td></tr><tr><td rowspan=1 colspan=1>640 x 480</td><td rowspan=1 colspan=1>60Hz</td><td rowspan=1 colspan=1>60Hz</td></tr><tr><td rowspan=1 colspan=1>640 × 480</td><td rowspan=1 colspan=1>67Hz</td><td rowspan=1 colspan=1>67Hz</td></tr><tr><td rowspan=1 colspan=1>640 x 480</td><td rowspan=1 colspan=1>72Hz</td><td rowspan=1 colspan=1>72Hz</td></tr><tr><td rowspan=1 colspan=1>640 x 480</td><td rowspan=1 colspan=1>75Hz</td><td rowspan=1 colspan=1>75Hz</td></tr><tr><td rowspan=1 colspan=1>720 × 400</td><td rowspan=1 colspan=1>70Hz</td><td rowspan=1 colspan=1>70Hz</td></tr><tr><td rowspan=1 colspan=1>800 × 600</td><td rowspan=1 colspan=1>56Hz</td><td rowspan=1 colspan=1>56Hz</td></tr><tr><td rowspan=1 colspan=1>800 x 600</td><td rowspan=1 colspan=1>60Hz</td><td rowspan=1 colspan=1>60Hz</td></tr><tr><td rowspan=1 colspan=1>800 × 600</td><td rowspan=1 colspan=1>72Hz</td><td rowspan=1 colspan=1>72Hz</td></tr><tr><td rowspan=1 colspan=1>800 x 600</td><td rowspan=1 colspan=1>75Hz</td><td rowspan=1 colspan=1>75Hz</td></tr><tr><td rowspan=1 colspan=1>832 x 624</td><td rowspan=1 colspan=1>75Hz</td><td rowspan=1 colspan=1>75Hz</td></tr><tr><td rowspan=1 colspan=1>1024 x 768</td><td rowspan=1 colspan=1>60Hz</td><td rowspan=1 colspan=1>60Hz</td></tr><tr><td rowspan=1 colspan=1>1024 x 768</td><td rowspan=1 colspan=1>70Hz</td><td rowspan=1 colspan=1>70Hz</td></tr><tr><td rowspan=1 colspan=1>1024 × 768</td><td rowspan=1 colspan=1>75Hz</td><td rowspan=1 colspan=1>75Hz</td></tr><tr><td rowspan=1 colspan=1>1280 x 1024</td><td rowspan=1 colspan=1>60Hz</td><td rowspan=1 colspan=1>60Hz</td></tr><tr><td rowspan=1 colspan=1>1280 x 1024</td><td rowspan=1 colspan=1>75Hz</td><td rowspan=1 colspan=1>75Hz</td></tr><tr><td rowspan=1 colspan=1>1280 × 720</td><td rowspan=1 colspan=1>60Hz</td><td rowspan=1 colspan=1>60Hz</td></tr><tr><td rowspan=1 colspan=1>1280 x 960</td><td rowspan=1 colspan=1>60Hz</td><td rowspan=1 colspan=1>60Hz</td></tr><tr><td rowspan=1 colspan=1>1440 × 900</td><td rowspan=1 colspan=1>60Hz</td><td rowspan=1 colspan=1>60Hz</td></tr><tr><td rowspan=1 colspan=1>1680 × 1050</td><td rowspan=1 colspan=1>60Hz</td><td rowspan=1 colspan=1>60Hz</td></tr><tr><td rowspan=1 colspan=1>1920 x 1080</td><td rowspan=1 colspan=1>60Hz</td><td rowspan=1 colspan=1>60Hz</td></tr><tr><td rowspan=1 colspan=1>1920 x 1080</td><td rowspan=1 colspan=1>75Hz</td><td rowspan=1 colspan=1>75Hz</td></tr></table>",
+        "bbox": [
+            70,
+            261,
+            939,
+            921
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "page_number",
+        "text": "9",
+        "bbox": [
+            941,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "常见问题",
+        "text_level": 2,
+        "bbox": [
+            53,
+            42,
+            231,
+            77
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "无法开机",
+        "text_level": 2,
+        "bbox": [
+            70,
+            109,
+            159,
+            128
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "• 检查显示器是否处于开机状态。",
+        "bbox": [
+            68,
+            134,
+            366,
+            152
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "• 检查电源线是否正确连接到显示器和电源插座。",
+        "bbox": [
+            70,
+            159,
+            507,
+            178
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "屏幕上无图像",
+        "text_level": 2,
+        "bbox": [
+            70,
+            186,
+            200,
+            205
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "• 检查所有线缆是否正确连接。",
+        "bbox": [
+            70,
+            211,
+            346,
+            229
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "• 检查显示器和计算机主机是否均处于开机状态。",
+        "bbox": [
+            70,
+            236,
+            507,
+            254
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "• 检查 VGA/HDMI 等信号线是否出现损坏。",
+        "bbox": [
+            70,
+            262,
+            472,
+            280
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "·如果无上述问题，则重启设备，查看屏幕是否可正常显示图像。",
+        "bbox": [
+            70,
+            287,
+            648,
+            306
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "屏幕太亮或太暗",
+        "text_level": 2,
+        "bbox": [
+            70,
+            318,
+            220,
+            337
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "·打开显示器设置菜单，调节屏幕显示亮度和对比度。",
+        "bbox": [
+            70,
+            343,
+            547,
+            361
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "屏幕颜色显示异常",
+        "text_level": 2,
+        "bbox": [
+            70,
+            370,
+            240,
+            388
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "• 检查VGA/HDMI等信号线是否出现损坏，如插针弯曲。",
+        "bbox": [
+            68,
+            394,
+            591,
+            413
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "·打开显示器设置菜单，调整色温。",
+        "bbox": [
+            70,
+            419,
+            386,
+            438
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "page_number",
+        "text": "10",
+        "bbox": [
+            931,
+            965,
+            956,
+            980
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "安全信息",
+        "text_level": 2,
+        "bbox": [
+            53,
+            42,
+            231,
+            77
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "【警告】在使用和操作设备前，为确保设备性能最佳，并避免出现危险或非法情况，请查阅并遵循所有的安全信息。",
+        "bbox": [
+            68,
+            110,
+            941,
+            153
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "电子设备",
+        "text_level": 2,
+        "bbox": [
+            70,
+            167,
+            159,
+            185
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "有明文规定禁止使用无线设备的场所，请勿使用本设备，否则会干扰其它电子设备或导致其它危险。",
+        "bbox": [
+            68,
+            192,
+            926,
+            235
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "对医疗设备的影响",
+        "text_level": 2,
+        "bbox": [
+            68,
+            249,
+            240,
+            268
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·在明文规定禁止使用无线设备的医疗和保健场所，请遵守该场所的规定，并关闭设备。",
+        "bbox": [
+            68,
+            273,
+            852,
+            292
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "：设备产生的无线电波或含有磁铁可能会影响植入式医疗设备或个人医用设备的正常工作，如起搏器、植入耳蜗、助听器等。若您使用了这些医用设备，请向其制造商咨询使用本设备的限制条件。",
+        "bbox": [
+            68,
+            298,
+            939,
+            361
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "．在使用本设备时，请与植入的医疗设备（如起搏器、植入耳蜗等）保持至少15厘米的距离。",
+        "bbox": [
+            68,
+            367,
+            905,
+            387
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "易燃易爆区域",
+        "text_level": 2,
+        "bbox": [
+            70,
+            403,
+            200,
+            420
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "．在加油站（维修站）或靠近易燃物品、化学制剂等任何易燃易爆区域，请勿使用本设备，并遵守所有图形或文字的指示。在燃油或化学制剂存放和运输区或易爆场所内或周围，设备可能引起爆炸或起火。",
+        "bbox": [
+            68,
+            426,
+            941,
+            491
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·请勿将设备及其配件与易燃液体、气体或易爆物品放在同一箱子中存放或运输。",
+        "bbox": [
+            68,
+            495,
+            789,
+            514
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "操作环境",
+        "text_level": 2,
+        "bbox": [
+            68,
+            530,
+            161,
+            549
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·请勿在多灰、潮湿、肮脏或靠近磁场的地方使用设备，以免引起设备内部电路故障。",
+        "bbox": [
+            68,
+            554,
+            830,
+            574
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "•插拔设备线缆前，请先停止使用设备并断开电源。在插拔线缆时请保持双手干燥。",
+        "bbox": [
+            68,
+            580,
+            811,
+            599
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·雷电天气请断开电源，并拔出连接在设备上的所有线缆，以免设备遭雷击损坏。",
+        "bbox": [
+            68,
+            605,
+            789,
+            624
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "• 请勿在雷雨天气使用本设备。雷雨天气可能导致设备故障或电击危险。",
+        "bbox": [
+            68,
+            631,
+            710,
+            650
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "· 请在介于0℃～35℃的环境温度中使用本产品，在介于-10℃～+45℃的环境温度中存储本产品。当环境温度过高或过低时，可能引起产品故障。",
+        "bbox": [
+            68,
+            656,
+            937,
+            697
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·请避免设备及其配件雨淋或受潮，否则可能导致火灾或触电危险。",
+        "bbox": [
+            68,
+            703,
+            668,
+            721
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·请勿将设备靠近热源或裸露的火源，如电暖器、微波炉、烤箱、热水器、炉火、蜡烛或其他可能产生高温的地方。",
+        "bbox": [
+            68,
+            728,
+            941,
+            769
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·设备在运行一段时间后，设备温度会升高。如果设备温度过高，请勿长时间接触，否则可能导致低温烫伤，引起皮肤红肿或色素沉淀。",
+        "bbox": [
+            68,
+            775,
+            941,
+            816
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·请勿让儿童或宠物吞咬设备或其配件，以免对其造成伤害或导致设备故障或爆炸。",
+        "bbox": [
+            68,
+            821,
+            811,
+            840
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·当不断重复同一动作时（例如玩游戏），您的手、臂、腕、肩、颈或其他身体部位可能会偶尔感觉不适。如果您感觉到不适，请停止使用并咨询医师。",
+        "bbox": [
+            68,
+            846,
+            941,
+            889
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "·请勿在设备上放置任何物体（如蜡烛、盛水容器等），若有异物或液体进入设备，请立刻停止使用并断开电源，拔出连接在设备上的所有线缆，并联系华为客户服务中心。",
+        "bbox": [
+            68,
+            892,
+            941,
+            935
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "page_number",
+        "text": "11",
+        "bbox": [
+            932,
+            965,
+            954,
+            980
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "【稳定性危险】本设备可能翻倒，造成严重人身伤害或死亡。采取诸如以下的简单的预防措施就能避免许多伤害，特别是对儿童的伤害：",
+        "bbox": [
+            67,
+            42,
+            936,
+            85
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "• 始终使用设备制造商建议的柜子或支架。",
+        "bbox": [
+            68,
+            89,
+            448,
+            108
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "•始终使用能安全支撑本设备的家具，始终确保本设备没有伸出该支撑家具的边缘。",
+        "bbox": [
+            68,
+            115,
+            811,
+            134
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·请勿将本设备放在不稳定的位置，请勿将本设备放置在高的家具（例如橱柜或书柜）上。",
+        "bbox": [
+            68,
+            140,
+            877,
+            160
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·始终规划好连接到本设备上的电线和电缆，这样它们就不会被绊或拉。",
+        "bbox": [
+            68,
+            165,
+            717,
+            185
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·请勿将本设备置于可能铺在本设备和支撑家具之间的织物或其他材料上。",
+        "bbox": [
+            68,
+            191,
+            731,
+            210
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·始终教育儿童攀爬家具到达本设备或其控制装置的危险。",
+        "bbox": [
+            68,
+            216,
+            591,
+            236
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·在本设备或放置本设备的家具顶部，请勿放置可能引诱儿童攀爬的物品，如玩具和遥控器。",
+        "bbox": [
+            68,
+            242,
+            892,
+            261
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·如果设备需要保留并更换位置，也应考虑上述注意事项。",
+        "bbox": [
+            68,
+            267,
+            594,
+            287
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "儿童健康",
+        "text_level": 2,
+        "bbox": [
+            70,
+            302,
+            161,
+            322
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "． 本设备及其配件可能包含一些小零件，请将设备及其配件放置在儿童接触不到的地方。儿童可能在无意之中损坏本设备及其配件，或吞下小零件导致窒息或其他危险。",
+        "bbox": [
+            68,
+            326,
+            941,
+            368
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "．本设备并非玩具，儿童应在成人监护下使用设备。",
+        "bbox": [
+            68,
+            373,
+            529,
+            393
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "配件要求",
+        "text_level": 2,
+        "bbox": [
+            68,
+            407,
+            161,
+            428
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·使用未经认可或不兼容的电源、充电器或电池，可能引发火灾、爆炸或其他危险。",
+        "bbox": [
+            68,
+            431,
+            811,
+            451
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "· 只能使用设备制造商认可且与此型号设备配套的配件。如果使用其他类型的配件，可能违反本设备的保修条款以及本设备所处国家的相关规定，并可能导致安全事故。如需获取认可的配件，请与华为客户服务中心联系。",
+        "bbox": [
+            68,
+            457,
+            942,
+            523
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "电源安全",
+        "text_level": 2,
+        "bbox": [
+            68,
+            536,
+            159,
+            555
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "• 电源插头作为断开电源的装置。",
+        "bbox": [
+            68,
+            560,
+            366,
+            579
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "• 电源插座应安装在设备附近并应易于触及。",
+        "bbox": [
+            68,
+            586,
+            468,
+            605
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "• 当不使用本设备时，请断开电源与设备的连接并从电源插座上拔掉电源插头。",
+        "bbox": [
+            68,
+            611,
+            771,
+            631
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "• 若电源插头或电源线已损坏，请勿继续使用，以免发生触电或火灾。",
+        "bbox": [
+            68,
+            636,
+            690,
+            656
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "•请勿用湿手触碰电源线，或用拉电源线缆的方式拔出电源。",
+        "bbox": [
+            68,
+            662,
+            610,
+            681
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "•请勿用湿手触摸设备或电源，以免发生设备短路、故障或触电。",
+        "bbox": [
+            68,
+            687,
+            650,
+            707
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "维护和保养",
+        "text_level": 2,
+        "bbox": [
+            70,
+            722,
+            181,
+            741
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "．不建议您自行升级部件或更换模块。如有相关服务需求，请联系华为客户服务中心。",
+        "bbox": [
+            68,
+            746,
+            831,
+            765
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·请保持设备及其配件干燥。请勿使用微波炉或吹风机等外部加热设备对其进行干燥处理。",
+        "bbox": [
+            68,
+            771,
+            870,
+            791
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·请勿在温度过高或过低区域放置设备及其配件，否则可能导致设备故障、着火或爆炸。",
+        "bbox": [
+            68,
+            797,
+            852,
+            816
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·请勿使设备及其配件受到强烈的冲击或震动，以免损坏设备及其配件，导致设备故障。",
+        "bbox": [
+            68,
+            824,
+            852,
+            841
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·清洁和维护前，请停止使用本设备，关闭所有应用，并断开与其他设备的所有连接或线缆。",
+        "bbox": [
+            68,
+            848,
+            892,
+            869
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·请勿使用烈性化学制品、清洗剂或强洗涤剂清洁设备或其配件。请使用清洁、干燥的软布擦拭设备或其配件。",
+        "bbox": [
+            68,
+            873,
+            941,
+            915
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "·请勿将磁条卡（例如银行卡、电话卡等）长期接触本设备，否则可能导致磁条卡被磁场损坏。",
+        "bbox": [
+            68,
+            920,
+            912,
+            940
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "header",
+        "text": "安全信息",
+        "bbox": [
+            877,
+            21,
+            956,
+            36
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "page_number",
+        "text": "12",
+        "bbox": [
+            931,
+            965,
+            956,
+            980
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "· 如果设备碰撞硬物或设备受到外界的强烈撞击造成破碎，切勿触摸或试图移除破碎的部分，请立即停止使用并及时联系华为客户服务中心。",
+        "bbox": [
+            70,
+            40,
+            941,
+            82
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "环境保护",
+        "text_level": 2,
+        "bbox": [
+            70,
+            97,
+            159,
+            115
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "·请勿将本设备及其附件作为普通的生活垃圾处理。",
+        "bbox": [
+            68,
+            120,
+            529,
+            139
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "·请遵守本设备及其附件处理的本地法令，并支持回收行动。",
+        "bbox": [
+            68,
+            146,
+            608,
+            165
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "table",
+        "img_path": "images/2e99e75cb11ed691e6265a960d62b2889cbfdec421097c8d48f53de7b6b3d66d.jpg",
+        "table_caption": [
+            "产品中有害物质的名称及含量"
+        ],
+        "table_footnote": [],
+        "table_body": "<table><tr><td rowspan=2 colspan=1>部件名称</td><td rowspan=1 colspan=10>有害物质</td></tr><tr><td rowspan=1 colspan=1>铅(Pb)</td><td rowspan=1 colspan=1>汞(Hg)</td><td rowspan=1 colspan=1>镉(Cd)</td><td rowspan=1 colspan=1>六价铬(Cr(VI))</td><td rowspan=1 colspan=1>多溴联多苯(PBB)</td><td rowspan=1 colspan=1>溴二苯邻醚(PBDE)</td><td rowspan=1 colspan=1>苯二甲酸二(2-乙基)己酯(DEHP)</td><td rowspan=1 colspan=1>邻苯二甲酸丁基苄酯(BBP)</td><td rowspan=1 colspan=1>邻苯二甲酸二正丁酯(DBP)</td><td rowspan=1 colspan=1>邻苯二甲酸二异丁酯(DIBP)</td></tr><tr><td rowspan=1 colspan=1>电路板</td><td rowspan=1 colspan=1>X</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td></tr><tr><td rowspan=1 colspan=1>屏幕</td><td rowspan=1 colspan=1>X</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td></tr><tr><td rowspan=1 colspan=1>电源适配器</td><td rowspan=1 colspan=1>X</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td></tr><tr><td rowspan=1 colspan=1>附件</td><td rowspan=1 colspan=1>X</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td><td rowspan=1 colspan=1>O</td></tr><tr><td rowspan=1 colspan=11>本表格依据 SJ/T 11364 的规定编制。：表示该有害物质在该部件所有均质材料中的含量均不超出电器电子产品有害物质限制使用国家标准要求。×：表示该有害物质至少在该部件的某一均质材料中含量超出电器电子产品有害物质限制使用国家标准要求，且由于技术性或经济性等因素的局限，法律法规不规定其限量要求或放宽其限量要求的技术应用。因型号不同，产品可能不包括以上部分部件，请以产品实际销售配置为准。</td></tr></table>",
+        "bbox": [
+            72,
+            198,
+            932,
+            609
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "image",
+        "img_path": "images/2e2257980e832e22341ac8eca560762fa4c73941173620552fe02a9f51f782d3.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            77,
+            615,
+            124,
+            646
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "本标识内数字表示产品及附件在正常使用状态下的环保使用期限为10年。",
+        "bbox": [
+            132,
+            625,
+            788,
+            644
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "某些部件也可能有环保使用期限标识，其环保使用期限以标识内数字为准。",
+        "bbox": [
+            73,
+            649,
+            736,
+            668
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "header",
+        "text": "安全信息",
+        "bbox": [
+            877,
+            21,
+            956,
+            36
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "page_number",
+        "text": "13",
+        "bbox": [
+            931,
+            965,
+            956,
+            980
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "image",
+        "img_path": "images/c5c9df0037775a3a0e3e4c797d6c42b3966a172aa6258e103ebbc6a464e630a1.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            70,
+            262,
+            289,
+            303
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "法律声明",
+        "text_level": 2,
+        "bbox": [
+            53,
+            42,
+            231,
+            76
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "版权所有2025华为终端有限公司。保留一切权利。",
+        "bbox": [
+            68,
+            109,
+            559,
+            128
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "本手册描述的产品中，可能包含华为及其可能存在的许可人享有版权的软件。除非获得相关权利人的许可，否则，任何人不能以任何形式对前述软件进行复制、分发、修改、摘录、反编译、反汇编、解密、反向工程、出租、转让、分许可等侵犯软件版权的行为，但是适用法律禁止此类限制的除外。",
+        "bbox": [
+            68,
+            135,
+            942,
+            223
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "商标声明",
+        "text_level": 2,
+        "bbox": [
+            70,
+            236,
+            157,
+            255
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "HDMI、HDMI High-Definition Multimedia Interface 等词汇、HDMI 商业外观及 HDMI 标识均为 HDMI Licensing Administrator, Inc. 的商标或注册商标。",
+        "bbox": [
+            68,
+            312,
+            937,
+            355
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "在本手册以及本手册描述的产品中，出现的其他商标、产品名称、服务名称以及公司名称，由其各自的所有人拥有。",
+        "bbox": [
+            68,
+            361,
+            941,
+            404
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "注意",
+        "text_level": 2,
+        "bbox": [
+            70,
+            417,
+            121,
+            436
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "本手册描述的产品及其附件的某些特性和功能，取决于当地网络的设计和性能，以及您安装的软件。某些特性和功能可能由于当地网络运营商或网络服务供应商不支持，或者由于当地网络的设置，或者您安装的软件不支持而无法实现。因此，本手册中的描述可能与您购买的产品或其附件并非完全一一对应。",
+        "bbox": [
+            68,
+            443,
+            941,
+            531
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "华为保留随时修改本手册中任何信息的权利，无需提前通知且不承担任何责任。",
+        "bbox": [
+            68,
+            537,
+            774,
+            556
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "责任限制",
+        "text_level": 2,
+        "bbox": [
+            70,
+            570,
+            159,
+            589
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "本手册中的内容均“按照现状”提供，除非适用法律要求，华为对本手册中的所有内容不提供任何明示或暗示的保证，包括但不限于适销性或者适用于某一特定目的的保证。",
+        "bbox": [
+            68,
+            596,
+            941,
+            639
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "在适用法律允许的范围内，华为在任何情况下，都不对因使用本手册相关内容及本手册描述的产品而产生的任何特殊的、附带的、间接的、继发性的损害进行赔偿，也不对任何利润、数据、商誉或预期节约的损失进行赔偿。",
+        "bbox": [
+            68,
+            645,
+            942,
+            709
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "在相关法律允许的范围内，在任何情况下，华为对您因为使用本手册描述的产品而遭受的损失的最大责任（除在涉及人身伤害的情况中根据适用的法律规定的损害赔偿外）以您购买本产品所支付的价款为限。",
+        "bbox": [
+            68,
+            717,
+            941,
+            782
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "进出口管制",
+        "text_level": 2,
+        "bbox": [
+            70,
+            795,
+            179,
+            814
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "若需将本手册描述的产品（包括但不限于产品中的软件及技术数据等）出口、再出口或者进口，您应遵守适用的进出口管制法律法规。",
+        "bbox": [
+            68,
+            821,
+            941,
+            864
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "隐私保护",
+        "text_level": 2,
+        "bbox": [
+            70,
+            877,
+            159,
+            896
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "为了解我们如何保护您的个人信息，请访问 https://consumer.huawei.com/privacy-policy阅读我们的隐私政策。",
+        "bbox": [
+            68,
+            907,
+            941,
+            953
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "page_number",
+        "text": "14",
+        "bbox": [
+            931,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "本指南仅供参考，不构成任何形式的承诺，产品（包括但不限于颜色、大小、屏幕显示等）请以实物为准。如出现本指南与官网描述不一致的情况，请以官网说明为准，恕不另行通知。",
+        "bbox": [
+            68,
+            42,
+            942,
+            85
+        ],
+        "page_idx": 16
+    },
+    {
+        "type": "header",
+        "text": "法律声明",
+        "bbox": [
+            877,
+            21,
+            956,
+            36
+        ],
+        "page_idx": 16
+    },
+    {
+        "type": "page_number",
+        "text": "15",
+        "bbox": [
+            931,
+            965,
+            956,
+            979
+        ],
+        "page_idx": 16
+    }
+]
