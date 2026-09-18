@@ -42,6 +42,13 @@ cache/
 *.db
 *.sqlite3
 
+# ---------- 知识库运行时数据（用户导入的文档/切片/图片，含版权内容，勿入库） ----------
+knowledge/temp_data/
+knowledge/temp-files/
+
+# ---------- 前端构建产物 ----------
+knowledge/web/dist/
+
 # ---------- Node / Vue 前端 ----------
 node_modules/
 .npm/

@@ -53,7 +53,7 @@ class ImportFileService:
         import_file_path = self._upload_file_to_local(file, file_dir)
 
         #3.2 保存到minio     file.name用于minio存储子路径名称（用净化后的文件名，防路径成分混入对象key）
-        #   http://192.168.10.151:9000/knowledge-base-files/origin_files/20260913/万用表RS-12的使用.pdf
+        #   http://127.0.0.1:9000/knowledge-base-files/origin_files/20260913/万用表RS-12的使用.pdf
         self._upload_file_to_minio(import_file_path,safe_filename)
 
         add_done_task(task_id,"upload_file")
@@ -153,7 +153,7 @@ class ImportFileService:
         try:
             config = get_config()
             obj_name = f"origin_files/{datetime.datetime.now().strftime('%Y%m%d')}/{file_name}"
-            # url = http://192.168.10.151:9000/knowledge-base-files/origin_files/20260913/万用表RS-12的使用.pdf
+            # url = http://127.0.0.1:9000/knowledge-base-files/origin_files/20260913/万用表RS-12的使用.pdf
             minio_client.fput_object(config.minio_bucket, obj_name, import_file_path)
         except MinioError as e:
             logger.warning(f"文件上传Minio出错: {e}")

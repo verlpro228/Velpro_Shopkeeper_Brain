@@ -104,7 +104,7 @@ class ImportConfig:
 
 
 
-    # http://192.168.6.150:9000/
+    # 示例: http://127.0.0.1:9000/
     def get_minio_base_url(self):
         base_protocol = "https://" if self.minio_secure else "http://"
         return base_protocol + f"{self.minio_endpoint}"

@@ -16,9 +16,9 @@ def test_milvus():
     try:
         from pymilvus import MilvusClient
         client = MilvusClient(
-            # uri=os.getenv("MILVUS_URL", "http://192.168.10.151:19530"),
+            # uri=os.getenv("MILVUS_URL", "http://127.0.0.1:19530"),
             # token=f"{os.getenv('MILVUS_USER', 'root')}:{os.getenv('MILVUS_PASSWORD', 'Milvus')}")
-            uri=os.getenv("MILVUS_URL", "http://192.168.10.151:19530"))
+            uri=os.getenv("MILVUS_URL", "http://127.0.0.1:19530"))
         version = client.get_server_version()
         print(f"  ✓ Milvus 连接成功，版本: {version}")
         client.close()
@@ -34,7 +34,7 @@ def test_mongodb():
     try:
         from pymongo import MongoClient
         client = MongoClient(
-            os.getenv("MONGO_URL", "mongodb://192.168.10.151:27017"),
+            os.getenv("MONGO_URL", "mongodb://127.0.0.1:27017"),
             serverSelectionTimeoutMS=5000,
             #username=os.getenv("MONGO_USER", "admin"),  # 新增：读取账号
             #password=os.getenv("MONGO_PASSWORD", "123456"),  # 新增：读取密码
@@ -56,7 +56,7 @@ def test_minio():
     try:
         from minio import Minio
         client = Minio(
-            os.getenv("MINIO_ENDPOINT", "192.168.10.151:9000"),
+            os.getenv("MINIO_ENDPOINT", "127.0.0.1:9000"),
             access_key=os.getenv("MINIO_ACCESS_KEY", "minioadmin"),
             secret_key=os.getenv("MINIO_SECRET_KEY", "minioadmin"),
             secure=False

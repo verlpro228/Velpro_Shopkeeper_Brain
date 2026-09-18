@@ -1,8 +1,10 @@
 from pymongo import MongoClient
 
 def get_con_mongodb():
-    # 连接 MongoDB
-    client = MongoClient("mongodb://admin:123456@192.168.10.151:27018")
+    # 连接 MongoDB（从环境变量读取，避免在代码中硬编码地址与凭据）
+    import os
+    mongo_url = os.getenv("MONGO_URL", "mongodb://127.0.0.1:27017")
+    client = MongoClient(mongo_url)
 
     # 选择数据库（不存在则自动创建）
     db = client["mydb"]

@@ -2,7 +2,7 @@ from minio import Minio
 
 # 初始化客户端
 client = Minio(
-    "192.168.10.151:9000",
+    "127.0.0.1:9000",
     access_key="minioadmin",
     secret_key="minioadmin",
     secure=False  # 是否使用https
@@ -20,5 +20,5 @@ client.fput_object(
 )
 
 # 上传后访问地址
-url = f"http://192.168.10.151:9000/velpro/images/微信图片_20260706133030_122_40.jpg"
+url = f"http://127.0.0.1:9000/velpro/images/微信图片_20260706133030_122_40.jpg"
 print(url) # 桶的权限要开放  private -> public
