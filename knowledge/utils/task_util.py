@@ -18,6 +18,7 @@ _tasks_status: Dict[str, str] = {}
 TASK_STATUS_PROCESSING = "processing"  # 任务处理中
 TASK_STATUS_COMPLETED = "completed"  # 任务完成
 TASK_STATUS_FAILED = "failed"  # 任务失败
+TASK_STATUS_CANCELLED = "cancelled"  # 任务已取消
 
 _NODE_NAME_TO_CN: Dict[str, str] = {
   "upload_file": "上传文件",
@@ -91,6 +92,18 @@ def get_task_status(task_id: str) -> str:
 def update_task_status(task_id: str, status_name: str) -> None:
   # 1. 更新指定任务的总体运行状态（如 processing 等）
   _tasks_status[task_id] = status_name
+
+
+def cancel_task(task_id: str) -> bool:
+  """
+  标记任务为取消状态。
+
+  返回 False 表示任务不存在；返回 True 表示取消标记已写入。
+  """
+  if task_id not in _tasks_status:
+    return False
+  _tasks_status[task_id] = TASK_STATUS_CANCELLED
+  return True
 
 
 def set_task_result(task_id: str, key: str, value: str) -> None:

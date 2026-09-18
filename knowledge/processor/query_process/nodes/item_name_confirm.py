@@ -257,12 +257,13 @@ class ItemNameAligner:
           picked = extract["item_name"]
           if picked not in confirmed:
             confirmed.append(picked)
-        # 场景2：唯一高分但与提取名不完全一致 → 视为同一商品的不同写法，直接确认
-        elif len(high) == 1:
+        # 场景2：唯一高分且与提取名不完全一致 → 分数足够高(≥0.85)才视为同一商品的不同写法直接确认；
+        # 0.7~0.85 区间的归一化排名分存在虚高误匹配风险，降级走场景3 反问用户
+        elif len(high) == 1 and high[0]["score"] >= 0.85:
           picked = high[0]["item_name"]
           if picked not in confirmed:
             confirmed.append(picked)
-        # 场景3：多个高置信候选且无精确同名 → 无法替用户做主，全部放入 options 反问
+        # 场景3：多个高置信候选且无精确同名（或唯一高分置信不足）→ 无法替用户做主，放入 options 反问
         else:
           for h in high[:3]:
             picked = h["item_name"]
@@ -325,9 +326,10 @@ class ItemNameConfirmNode(BaseNode):
     original_query = state.get("original_query")
 
     history_messages: List[Dict[str, Any]] = get_recent_messages(session_id)
-    history_context = "暂无历史对话信息"
-    for message in history_messages:
-      history_context += message["role"] + ":" + message["text"] + "\n"
+    # 逐条拼接历史对话；仅在无历史时使用占位文案（避免占位文案与真实历史拼成矛盾文本干扰 LLM）
+    history_context = "\n".join(
+      f"{message['role']}:{message['text']}" for message in history_messages
+    ) or "暂无历史对话信息"
     print("10条数据（最近5轮对话）history_context:", history_context)
 
     # 2.LLM提取商品名称（返回 item_names 商品名列表 + rewritten_query 重写后问题，供步骤 3-5 使用）

@@ -6,10 +6,13 @@ from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
-from knowledge.core.paths import get_front_page_dir
+from knowledge.core.paths import get_web_dist_dir
 from knowledge.core.deps import get_query_service
+from knowledge.api.auth_router import register_auth_routes
+from knowledge.schema.auth_schema import AuthUser
 from knowledge.schema.query_schema import QueryRequest, QueryResponse, StreamSubmitResponse
 from knowledge.service.query_service import QueryService
+from knowledge.utils.auth_util import require_auth_user
 from knowledge.utils.sse_util import sse_generator, create_sse_queue, get_sse_queue
 from knowledge.utils.task_util import get_task_status, TASK_STATUS_FAILED, clear_task
 from knowledge.processor.query_process.base import setup_logging
@@ -27,29 +30,45 @@ def create_app() -> FastAPI:
     allow_methods=["*"],
     allow_headers=["*"],
   )
-  # http://localhost:8001/front/chat.html
-  front_page_dir = get_front_page_dir()
-  if front_page_dir and os.path.exists(front_page_dir):
-    app.mount("/front", StaticFiles(directory=front_page_dir))
+  web_assets_dir = os.path.join(get_web_dist_dir(), "assets")
+  if os.path.exists(web_assets_dir):
+    app.mount("/assets", StaticFiles(directory=web_assets_dir))
   register_routes(app)
   return app
 
 
+def _frontend_page() -> FileResponse:
+  web_index_path = os.path.join(get_web_dist_dir(), "index.html")
+  if os.path.exists(web_index_path):
+    return FileResponse(web_index_path)
+  raise HTTPException(status_code=404, detail="Vue frontend build not found. Run `npm run build` in knowledge/web.")
+
 
 def register_routes(app: FastAPI):
+  register_auth_routes(app)
+
+  @app.get("/")
+  async def index_page():
+    return _frontend_page()
 
   @app.get("/chat")
   async def chat_page():
-    path = os.path.join(get_front_page_dir(), "chat.html")
-    if not os.path.exists(path):
-      raise HTTPException(status_code=404, detail="chat.html not found")
-    return FileResponse(path)
+    return _frontend_page()
+
+  @app.get("/import")
+  async def import_page():
+    return _frontend_page()
+
+  @app.get("/front/{legacy_path:path}")
+  async def legacy_front_page(legacy_path: str):
+    return _frontend_page()
 
   @app.post("/query", response_model=QueryResponse | StreamSubmitResponse)
   async def query(
     request: QueryRequest,
     background_tasks: BackgroundTasks,
     service: QueryService = Depends(get_query_service),
+    current_user: AuthUser = Depends(require_auth_user),
   ):
 
     # 1. 获取session_id
@@ -101,7 +120,11 @@ def register_routes(app: FastAPI):
     return QueryResponse(message="处理完成", session_id=session_id, answer=answer)
 
   @app.get("/stream/{task_id}")
-  async def stream(task_id: str, request: Request) -> StreamingResponse:
+  async def stream(
+    task_id: str,
+    request: Request,
+    current_user: AuthUser = Depends(require_auth_user),
+  ) -> StreamingResponse:
     # 队列不存在说明任务不存在或 SSE 已被消费/清理过，明确 404 而不是返回空流
     if get_sse_queue(task_id) is None:
       raise HTTPException(status_code=404, detail="任务不存在或已结束")
@@ -116,6 +139,7 @@ def register_routes(app: FastAPI):
   async def get_history(
       session_id: str, limit: int = 50,
       service: QueryService = Depends(get_query_service),
+      current_user: AuthUser = Depends(require_auth_user),
   ):
     try:
       # 上限保护：防止 limit 传超大值一次拖垮 Mongo
@@ -129,6 +153,7 @@ def register_routes(app: FastAPI):
   async def clear_chat_history(
     session_id: str,
     service: QueryService = Depends(get_query_service),
+    current_user: AuthUser = Depends(require_auth_user),
   ):
     count = service.clear_history(session_id)
     return {"message": "History cleared", "deleted_count": count}

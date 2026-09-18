@@ -17,7 +17,7 @@
 
 import json
 import logging
-from typing import List, Tuple, Union, Any, Dict
+from typing import List, Tuple, Any, Dict
 
 from langchain_core.messages import SystemMessage, HumanMessage
 
@@ -41,7 +41,7 @@ class HyDeSearchNode(BaseNode):
   """
   name = "search_embedding_hyde"
 
-  def process(self, state: QueryGraphState) -> Union[QueryGraphState, Dict[str, Any]]:
+  def process(self, state: QueryGraphState) -> Dict[str, Any]:
     """执行 HyDE 检
     Args:
         state: 需包含 rewritten_query 和 item_names
@@ -59,7 +59,7 @@ class HyDeSearchNode(BaseNode):
     embedding_model = AIClients.get_bge_m3_client()
     milvus_client = StorageClients.get_milvus_client()
     if not embedding_model or not milvus_client:
-      return state
+      return {"hyde_embedding_chunks": []}
 
     # 4. 假设性文档嵌入(注入问题+假设性文档)
     # 拼接策略: 原查询在前主导语义，假设文档在后补充领域术语，弥补"问句≠文档"的向量鸿沟
@@ -70,7 +70,7 @@ class HyDeSearchNode(BaseNode):
     )
 
     if not embedding_result:
-      return state
+      return {"hyde_embedding_chunks": []}
 
     # 5. 获取 item_name 的过滤表达式（把检索范围限定在已确认商品的 chunks 内）
     item_name_filtered_expr = self._item_name_filte_expr(validate_item_names)
@@ -92,7 +92,7 @@ class HyDeSearchNode(BaseNode):
     )
 
     if not reps or not reps[0]:
-      return state
+      return {"hyde_embedding_chunks": []}
 
     # 8. 只更新 hyde_embedding_chunks（返回 dict，LangGraph 仅合并该键，不覆盖其他 state 字段）
     return {"hyde_embedding_chunks": reps[0]}

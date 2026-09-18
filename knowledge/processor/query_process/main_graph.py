@@ -108,7 +108,7 @@ def create_query_graph() -> CompiledStateGraph:
   # 2. 实例化节点
   nodes = {
     "item_name_confirm": ItemNameConfirmNode(),
-    "multi_search": lambda x: x,  # 虚拟节点（分发）
+    "multi_search": lambda x: {},  # 虚拟节点（分发），不回写完整 state，避免并行分支重复写入单值字段
     "search_embedding": VectorSearchNode(),
     "search_embedding_hyde": HyDeSearchNode(),
     "web_search_mcp": WebSearchMcpNode(),

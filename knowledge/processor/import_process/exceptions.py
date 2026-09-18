@@ -23,6 +23,10 @@ class ImportProcessError(Exception):
         return " ".join(parts)
 
 
+class ImportCancelledError(ImportProcessError):
+    """导入任务被用户取消。"""
+    pass
+
 
 class StateFieldError(ImportProcessError):
     """状态字段错误。

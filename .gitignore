@@ -42,6 +42,12 @@ cache/
 *.db
 *.sqlite3
 
+# ---------- Node / Vue 前端 ----------
+node_modules/
+.npm/
+.pnpm-store/
+*.tsbuildinfo
+
 # ---------- 模型与数据大文件 ----------
 *.pth
 *.pt

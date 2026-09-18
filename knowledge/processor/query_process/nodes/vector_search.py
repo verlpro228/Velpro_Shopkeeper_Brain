@@ -15,7 +15,7 @@ from knowledge.processor.query_process.state import QueryGraphState
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from typing import Dict, Any, List, Tuple, Union
+from typing import Dict, Any, List, Tuple
 
 from knowledge.utils.client.ai_clients import AIClients
 from knowledge.utils.client.storage_clients import StorageClients
@@ -28,7 +28,7 @@ class VectorSearchNode(BaseNode):
 
   name = "search_embedding"
 
-  def process(self, state: QueryGraphState) -> Union[QueryGraphState, Dict[str, Any]]:
+  def process(self, state: QueryGraphState) -> Dict[str, Any]:
     # def process(self, state: QueryGraphState) -> QueryGraphState | Dict[str, Any]:
     # def process(self, state: QueryGraphState) -> QueryGraphState or Dict[str, Any]:
     # 1. 参数校验
@@ -39,21 +39,21 @@ class VectorSearchNode(BaseNode):
       embedding_model = AIClients.get_bge_m3_client()
     except ConnectionError as e:
       self.logger.error(f"BGE-M3嵌入模型获取失败 原因:{str(e)}")
-      return state
+      return {"embedding_chunks": []}
 
     # 3. 获取milvus客户端
     try:
       milvus_client = StorageClients.get_milvus_client()
     except ConnectionError as e:
       self.logger.error(f"Milvus客户端获取失败 原因:{str(e)}")
-      return state
+      return {"embedding_chunks": []}
 
     # 4. 对问题嵌入
     try:
       embed_query = generate_bge_m3_hybrid_vectors(model=embedding_model, embedding_documents=[validated_query])
     except Exception as e:
       self.logger.error(f"问题{validated_query}嵌入失败")
-      return state
+      return {"embedding_chunks": []}
 
     # 5. 构建过滤表达式以及表达式参数
     filter_expr, filter_expr_param = item_names_filter(validate_item_names)
@@ -75,7 +75,7 @@ class VectorSearchNode(BaseNode):
 
       # 8. 获取搜索结果
       if not hybrid_search_reps or not hybrid_search_reps[0]:
-        return state
+        return {"embedding_chunks": []}
 
       # 9. 更新state 返回
       return {
@@ -83,7 +83,7 @@ class VectorSearchNode(BaseNode):
       }
     except Exception as e:
       self.logger.error(f"混合检索失败 原因:{str(e)}")
-      return state
+      return {"embedding_chunks": []}
 
   def _validate_state(self, state: QueryGraphState) -> Tuple[str, List[str]]:
     """

@@ -1,6 +1,6 @@
 import asyncio
 import json
-from typing import Dict, List, Tuple, Any, Union
+from typing import Dict, List, Tuple, Any
 
 from agents.mcp import MCPServerStreamableHttp
 
@@ -12,7 +12,7 @@ from knowledge.processor.query_process.state import QueryGraphState
 class WebSearchMcpNode(BaseNode):
   name = "web_search_mcp"
 
-  def process(self, state: QueryGraphState) -> QueryGraphState | Dict[str, Any]:
+  def process(self, state: QueryGraphState) -> Dict[str, Any]:
     """
     三路检索之一： 基于web联网的MCP服务调用。
     :param state: rewritten_query,item_names
@@ -29,7 +29,7 @@ class WebSearchMcpNode(BaseNode):
     # 异步函数调用放在事件循环中，变成同步处理
     web_search_docs = asyncio.run(self._web_mcp(validateed_rewritten_query))
     if not web_search_docs:
-      return state
+      return {"web_search_docs": []}
 
     # 5.封装返回结果
     return {

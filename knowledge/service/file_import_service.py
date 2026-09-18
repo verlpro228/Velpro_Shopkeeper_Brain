@@ -9,11 +9,11 @@ from fastapi import HTTPException, UploadFile
 
 from knowledge.core.paths import get_local_base_dir
 from knowledge.processor.import_process.config import get_config
-from knowledge.processor.import_process.exceptions import FileProcessingError, MinioError
+from knowledge.processor.import_process.exceptions import FileProcessingError, ImportCancelledError, MinioError
 from knowledge.processor.import_process.main_graph import kb_import_graph_app
 from knowledge.utils.client.storage_clients import StorageClients
 from knowledge.utils.task_util import add_running_task, add_done_task, TASK_STATUS_PROCESSING, update_task_status, \
-    TASK_STATUS_COMPLETED, TASK_STATUS_FAILED
+    TASK_STATUS_COMPLETED, TASK_STATUS_FAILED, TASK_STATUS_CANCELLED, get_task_status
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +36,7 @@ class ImportFileService:
 
         #1.生成task_id
         task_id = self._generate_task_id()
+        update_task_status(task_id, TASK_STATUS_PROCESSING)
 
         #2.文件上传存储路径    D:\PyProjects\shopkeeper_brain\knowledge\temp_data\20260913
         date_path = self._get_date_path(get_local_base_dir())
@@ -69,15 +70,25 @@ class ImportFileService:
             "import_file_path": import_file_path,
             "file_dir": file_dir,  # 导入(出)文件目录
         }
-        update_task_status(task_id, TASK_STATUS_PROCESSING)
+        if get_task_status(task_id) != TASK_STATUS_CANCELLED:
+            update_task_status(task_id, TASK_STATUS_PROCESSING)
         try:
             for event in kb_import_graph_app.stream(init_state):  # stream_mode="updates"  增量结果
+                if get_task_status(task_id) == TASK_STATUS_CANCELLED:
+                    raise ImportCancelledError("任务已取消")
                 for node_name, process_state in event.items():
                     print(f"{task_id}-运行节点: {node_name}")
-            update_task_status(task_id, TASK_STATUS_COMPLETED)
+            if get_task_status(task_id) != TASK_STATUS_CANCELLED:
+                update_task_status(task_id, TASK_STATUS_COMPLETED)
+        except ImportCancelledError:
+            update_task_status(task_id, TASK_STATUS_CANCELLED)
+            logger.info(f"导入流程已取消: {task_id}")
         except Exception as e:
-            update_task_status(task_id, TASK_STATUS_FAILED)
-            logger.info(f"导入流程执行出错: {e}")
+            if get_task_status(task_id) == TASK_STATUS_CANCELLED:
+                logger.info(f"导入流程已取消: {task_id}")
+            else:
+                update_task_status(task_id, TASK_STATUS_FAILED)
+                logger.info(f"导入流程执行出错: {e}")
 
 
     def _validate_upload(self, file: UploadFile) -> str:

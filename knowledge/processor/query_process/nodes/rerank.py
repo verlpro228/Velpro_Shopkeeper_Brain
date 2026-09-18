@@ -9,7 +9,7 @@ class RerankNode(BaseNode):
   # 重排序节点 精排序
   name = "rerank"
 
-  def process(self, state: QueryGraphState) -> QueryGraphState:
+  def process(self, state: QueryGraphState) -> Dict[str, Any]:
     # 重排序节点 精确排序 交叉编码器
 
     # 1. 获取重写问题或原始问题。 用于交叉编码器的 Key
@@ -25,10 +25,9 @@ class RerankNode(BaseNode):
     cutoff_docs = self.cliff_cutoff(rerank_docs, self.config.rerank_max_top_k, self.config.rerank_min_top_k,
                                     self.config.rerank_gap_abs)
 
-    # 5. 回填
-    state['reranked_docs'] = cutoff_docs
-
-    return state
+    return {
+      "reranked_docs": cutoff_docs
+    }
 
   # 合并多源文档 RRF集合【向量搜索+HyDE】+ Web MCP 集合
   def _merge_multi_source_docs(self, state: QueryGraphState) -> List[Dict[str, Any]]:

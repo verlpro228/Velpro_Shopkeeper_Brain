@@ -9,8 +9,14 @@ from typing import TypeVar, Optional
 import logging
 
 from knowledge.processor.import_process.config import ImportConfig, get_config
-from knowledge.processor.import_process.exceptions import ImportProcessError
-from knowledge.utils.task_util import add_running_task, add_done_task, add_node_duration
+from knowledge.processor.import_process.exceptions import ImportCancelledError, ImportProcessError
+from knowledge.utils.task_util import (
+    TASK_STATUS_CANCELLED,
+    add_running_task,
+    add_done_task,
+    add_node_duration,
+    get_task_status,
+)
 
 # 定义泛型占位符，让状态类型（state）在不同节点间可以灵活变化（如 dict 、 TypedDict 、 dataclass ）
 # 同时保留类型检查能力
@@ -68,6 +74,9 @@ class BaseNode(ABC):
         """
         task_id = state.get("task_id", "")
         try:
+            if task_id and get_task_status(task_id) == TASK_STATUS_CANCELLED:
+                raise ImportCancelledError("任务已取消", node_name=self.name)
+
             # 1. 开始准备执行节点
             self.logger.info(f"--- {self.name} 开始 ---")
             if task_id:
@@ -85,10 +94,15 @@ class BaseNode(ABC):
             self.logger.info(f"--- {self.name} 完成 , 耗时 {duration:.2f}s ---")
 
             if task_id:
+                if get_task_status(task_id) == TASK_STATUS_CANCELLED:
+                    raise ImportCancelledError("任务已取消", node_name=self.name)
                 add_done_task(task_id, self.name)
                 add_node_duration(task_id, self.name, duration)
 
             return result
+        except ImportCancelledError:
+            self.logger.info(f"{self.name} 已取消")
+            raise
         except Exception as e:
             self.logger.error(f"{self.name} 执行失败: {e}")
             raise ImportProcessError(

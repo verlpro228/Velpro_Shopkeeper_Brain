@@ -8,7 +8,7 @@ class RrfNode(BaseNode):
   # 倒序融合排序 RRF将向量检索和HyDE检索进行 RRF融合排序
   name = "rrf"
 
-  def process(self, state: QueryGraphState) -> QueryGraphState:
+  def process(self, state: QueryGraphState) -> Dict[str, Any]:
     # 获取向量检索结果和HyDE检索结果 进行数据校验
     embedding_chunks: List[Dict[str, Any]] = state.get("embedding_chunks") or []
     hyde_embedding_chunks: List[Dict[str, Any]] = state.get("hyde_embedding_chunks") or []
@@ -23,10 +23,9 @@ class RrfNode(BaseNode):
     # RRF计算
     rrf_results: List[Tuple[Dict[str, Any], float]] = self._rrf_merge(rrf_inputs)
 
-    # 回填
-    state["rrf_chunks"] = [entity for entity,_ in rrf_results]
-
-    return state
+    return {
+      "rrf_chunks": [entity for entity, _ in rrf_results]
+    }
 
   # 格式化输入数据
   def _normalize_input(self, chunks_input: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
